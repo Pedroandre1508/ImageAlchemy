@@ -1,0 +1,3 @@
+/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles/pdi_code.dir
+/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles/edit_cache.dir
+/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles/rebuild_cache.dir
