@@ -4,7 +4,7 @@
 
 Operation::Operation() {}
 
-// Função auxiliar para saturação manual com documentação explícita
+// Função auxiliar para saturação manual
 inline uchar saturateValue(int value) {
     // TRATAMENTO DE OVERFLOW/UNDERFLOW:
     // - Valores < 0 (underflow) → 0
@@ -15,7 +15,7 @@ inline uchar saturateValue(int value) {
     return static_cast<uchar>(value);
 }
 
-// Função auxiliar para arredondamento manual (substitui cvRound)
+// Função auxiliar para arredondamento manual
 inline int roundToInt(double value) {
     return static_cast<int>(value + 0.5);
 }
@@ -27,9 +27,6 @@ inline int roundToInt(double value) {
  * - Para cada pixel da imagem colorida (BGR), calcula a média simples dos 3 canais
  * - Fórmula: Cinza = (B + G + R) / 3
  * - Aplica o mesmo valor calculado nos 3 canais para manter compatibilidade com imagens coloridas
- * 
- * Vantagens: Simples e rápido
- * Desvantagens: Não considera a percepção visual humana (olho é mais sensível ao verde)
  */
 cv::Mat Operation::toGrayscaleAverage(const cv::Mat& input) {
     cv::Mat output = input.clone();  // Cria uma cópia da imagem original
@@ -52,16 +49,13 @@ cv::Mat Operation::toGrayscaleAverage(const cv::Mat& input) {
 }
 
 /**
- * CONVERSÃO PARA TONS DE CINZA - MÉDIA PONDERADA (LUMINÂNCIA)
+ * CONVERSÃO PARA TONS DE CINZA - MÉDIA PONDERADA
  * 
  * Funcionamento:
  * - Usa pesos diferentes para cada canal baseado na sensibilidade do olho humano
  * - Fórmula ITU-R BT.709: Cinza = 0.299*R + 0.587*G + 0.114*B
  * - Verde tem maior peso (0.587) porque o olho humano é mais sensível a ele
  * - Azul tem menor peso (0.114) porque contribui menos para a percepção de brilho
- * 
- * Vantagens: Resultado mais próximo da percepção visual humana
- * Desvantagens: Ligeiramente mais lento que a média simples
  */
 cv::Mat Operation::toGrayscaleWeighted(const cv::Mat& input) {
     cv::Mat output = input.clone();
@@ -72,7 +66,6 @@ cv::Mat Operation::toGrayscaleWeighted(const cv::Mat& input) {
                 cv::Vec3b pixel = input.at<cv::Vec3b>(y, x);
                 
                 // Aplica os pesos padrão da ITU-R BT.709 para luminância
-                // pixel[0] = Blue, pixel[1] = Green, pixel[2] = Red
                 uchar weighted = static_cast<uchar>(0.114 * pixel[0] + 0.587 * pixel[1] + 0.299 * pixel[2]);
                 
                 output.at<cv::Vec3b>(y, x) = cv::Vec3b(weighted, weighted, weighted);
@@ -83,12 +76,11 @@ cv::Mat Operation::toGrayscaleWeighted(const cv::Mat& input) {
 }
 
 /**
- * CONVERSÃO PARA TONS DE CINZA REAL (1 CANAL) - SEM OPENCV
+ * CONVERSÃO PARA TONS DE CINZA REAL
  * 
  * Funcionamento:
- * - Converte imagem colorida (3 canais) para escala de cinza real (1 canal)
+ * - Converte imagem colorida (3 canais) para escala de cinza real
  * - Usa média ponderada ITU-R BT.709 para melhor qualidade
- * - Implementação manual sem usar cv::cvtColor()
  */
 cv::Mat Operation::toGrayscaleRealChannel(const cv::Mat& input) {
     if (input.channels() != 3) {
@@ -104,7 +96,6 @@ cv::Mat Operation::toGrayscaleRealChannel(const cv::Mat& input) {
             cv::Vec3b pixel = input.at<cv::Vec3b>(y, x);
             
             // Aplica os pesos padrão da ITU-R BT.709 para luminância
-            // pixel[0] = Blue, pixel[1] = Green, pixel[2] = Red
             uchar cinza = static_cast<uchar>(0.114 * pixel[0] + 0.587 * pixel[1] + 0.299 * pixel[2]);
             
             // Salva no formato de 1 canal
@@ -115,7 +106,7 @@ cv::Mat Operation::toGrayscaleRealChannel(const cv::Mat& input) {
 }
 
 /**
- * SOMA DE IMAGENS - OPERAÇÃO PIXEL A PIXEL
+ * SOMA DE IMAGENS
  * 
  * Funcionamento:
  * - Soma os valores correspondentes de cada canal de duas imagens
@@ -169,15 +160,12 @@ cv::Mat Operation::addImages(const cv::Mat& img1, const cv::Mat& img2) {
 }
 
 /**
- * SUBTRAÇÃO DE IMAGENS - OPERAÇÃO PIXEL A PIXEL
- * 
+ * SUBTRAÇÃO DE IMAGENS 
  * Funcionamento:
  * - Subtrai os valores correspondentes de cada canal
  * - Suporta combinações: colorida+colorida, colorida+cinza, cinza+cinza
  * - Para colorida+cinza: replica o valor cinza nos 3 canais BGR
  * - Valores negativos ficam 0 (clamp inferior)
- * 
- * Aplicações: Detecção de diferenças, remoção de fundo, detecção de movimento
  */
 cv::Mat Operation::subtractImages(const cv::Mat& img1, const cv::Mat& img2) {
     int rows = std::min(img1.rows, img2.rows);
@@ -225,15 +213,13 @@ cv::Mat Operation::subtractImages(const cv::Mat& img1, const cv::Mat& img2) {
 }
 
 /**
- * MULTIPLICAÇÃO DE IMAGENS - OPERAÇÃO PIXEL A PIXEL
+ * MULTIPLICAÇÃO DE IMAGENS
  * 
  * Funcionamento:
  * - Multiplica os valores correspondentes e divide por 255 para normalizar
  * - Suporta combinações: colorida+colorida, colorida+cinza, cinza+cinza
  * - Para colorida+cinza: replica o valor cinza nos 3 canais BGR
  * - A divisão por 255 mantém o resultado na faixa 0-255
- * 
- * Aplicações: Mascaramento, aplicação de texturas, efeitos de iluminação
  */
 cv::Mat Operation::multiplyImages(const cv::Mat& img1, const cv::Mat& img2) {
     int rows = std::min(img1.rows, img2.rows);
@@ -277,7 +263,7 @@ cv::Mat Operation::multiplyImages(const cv::Mat& img1, const cv::Mat& img2) {
 }
 
 /**
- * DIVISÃO DE IMAGENS - OPERAÇÃO PIXEL A PIXEL
+ * DIVISÃO DE IMAGENS
  * 
  * Funcionamento:
  * - Divide um pixel pelo correspondente da segunda imagem
@@ -285,8 +271,6 @@ cv::Mat Operation::multiplyImages(const cv::Mat& img1, const cv::Mat& img2) {
  * - Para colorida+cinza: replica o valor cinza nos 3 canais BGR
  * - Multiplica por 255 para manter a faixa dinâmica
  * - Divisão por zero resulta em valor máximo (255)
- * 
- * Aplicações: Correção de iluminação não uniforme, normalização
  */
 cv::Mat Operation::divideImages(const cv::Mat& img1, const cv::Mat& img2) {
     int rows = std::min(img1.rows, img2.rows);
@@ -342,14 +326,12 @@ cv::Mat Operation::divideImages(const cv::Mat& img1, const cv::Mat& img2) {
 }
 
 /**
- * SOMA COM ESCALAR - OPERAÇÃO ARITMÉTICA BÁSICA
+ * SOMA COM ESCALAR
  * 
  * Funcionamento:
  * - Adiciona um valor constante a todos os pixels da imagem
  * - Fórmula: Resultado(x,y) = Pixel(x,y) + Escalar
  * - Usar saturate_cast evita overflow automático
- * 
- * Aplicações: Ajuste de brilho (valores positivos clareiam a imagem)
  */
 cv::Mat Operation::addScalar(const cv::Mat& input, double scalar) {
     cv::Mat result = input.clone();
@@ -377,14 +359,12 @@ cv::Mat Operation::addScalar(const cv::Mat& input, double scalar) {
 }
 
 /**
- * SUBTRAÇÃO COM ESCALAR - OPERAÇÃO ARITMÉTICA BÁSICA
+ * SUBTRAÇÃO COM ESCALAR
  * 
  * Funcionamento:
  * - Subtrai um valor constante de todos os pixels
  * - Fórmula: Resultado(x,y) = Pixel(x,y) - Escalar
  * - Valores negativos ficam 0 (clamp inferior)
- * 
- * Aplicações: Redução de brilho (escurece a imagem)
  */
 cv::Mat Operation::subtractScalar(const cv::Mat& input, double scalar) {
     cv::Mat result = input.clone();
@@ -412,15 +392,13 @@ cv::Mat Operation::subtractScalar(const cv::Mat& input, double scalar) {
 }
 
 /**
- * MULTIPLICAÇÃO COM ESCALAR - AJUSTE DE CONTRASTE
+ * MULTIPLICAÇÃO COM ESCALAR
  * 
  * Funcionamento:
  * - Multiplica todos os pixels por um fator constante
  * - Fórmula: Resultado(x,y) = Pixel(x,y) * Escalar
  * - Escalar > 1: Aumenta contraste e brilho
  * - Escalar < 1: Diminui contraste e brilho
- * 
- * Aplicações: Ajuste de contraste da imagem
  */
 cv::Mat Operation::multiplyScalar(const cv::Mat& input, double scalar) {
     cv::Mat result = input.clone();
@@ -454,8 +432,6 @@ cv::Mat Operation::multiplyScalar(const cv::Mat& input, double scalar) {
  * - Divide todos os pixels por um fator constante
  * - Fórmula: Resultado(x,y) = Pixel(x,y) / Escalar
  * - Divisão por zero é tratada como valor máximo
- * 
- * Aplicações: Redução de brilho controlada, normalização
  */
 cv::Mat Operation::divideScalar(const cv::Mat& input, double scalar) {
     cv::Mat result = input.clone();
@@ -490,14 +466,12 @@ cv::Mat Operation::divideScalar(const cv::Mat& input, double scalar) {
 }
 
 /**
- * LIMIARIZAÇÃO (THRESHOLDING) - BINARIZAÇÃO DE IMAGEM
+ * LIMIARIZAÇÃO
  * 
  * Funcionamento:
  * - Converte imagem em binária baseada em um valor de limiar
  * - Para imagens coloridas: primeiro converte para cinza, depois aplica limiar
  * - Fórmula: Se Pixel > Limiar então MaxVal, senão 0
- * 
- * Aplicações: Segmentação, detecção de objetos, pré-processamento para OCR
  */
 cv::Mat Operation::threshold(const cv::Mat& input, double thresh, double maxval) {
     cv::Mat result = input.clone();
@@ -531,15 +505,12 @@ cv::Mat Operation::threshold(const cv::Mat& input, double thresh, double maxval)
 }
 
 /**
- * ISOLAMENTO DE CANAL - EXTRAÇÃO DE COMPONENTE DE COR
+ * ISOLAMENTO DE CANAL
  * 
  * Funcionamento:
  * - Mantém apenas um canal de cor, zerando os outros
  * - canal 0 = Azul, canal 1 = Verde, canal 2 = Vermelho
- * - Útil para análise de componentes individuais de cor
- * 
- * Aplicações: Análise de canais, debug, efeitos artísticos
- */
+*/
 cv::Mat Operation::isolateChannel(const cv::Mat& input, int channel) {
     cv::Mat result = cv::Mat::zeros(input.size(), input.type());
 
@@ -564,14 +535,12 @@ cv::Mat Operation::isolateChannel(const cv::Mat& input, int channel) {
 }
 
 /**
- * CÁLCULO DE HISTOGRAMA - DISTRIBUIÇÃO DE INTENSIDADES
+ * CÁLCULO DE HISTOGRAMA
  * 
  * Funcionamento:
  * - Conta quantas vezes cada valor de intensidade (0-255) aparece na imagem
  * - Para imagens coloridas: calcula um histograma para cada canal (B, G, R)
  * - Resultado: vetor de matrizes onde cada posição [i] contém a contagem do valor i
- * 
- * Aplicações: Análise de distribuição tonal, equalização, ajuste de contraste
  */
 std::vector<cv::Mat> Operation::computeHistogram(const cv::Mat& input) {
     std::vector<cv::Mat> histograms;
@@ -604,11 +573,11 @@ std::vector<cv::Mat> Operation::computeHistogram(const cv::Mat& input) {
 }
 
 /**
- * VISUALIZAÇÃO DE HISTOGRAMA - REPRESENTAÇÃO GRÁFICA CORRIGIDA
+ * VISUALIZAÇÃO DE HISTOGRAMA - REPRESENTAÇÃO GRÁFICA
  */
 cv::Mat Operation::visualizeHistogram(const std::vector<cv::Mat>& histograms) {
     int hist_w = 512, hist_h = 400;
-    int bin_w = hist_w / 256;  // Usando divisão inteira em vez de cvRound
+    int bin_w = hist_w / 256;
     cv::Mat histImage(hist_h, hist_w, CV_8UC3, cv::Scalar(0, 0, 0));
 
     // Encontra o valor máximo para normalização
@@ -656,14 +625,12 @@ cv::Mat Operation::visualizeHistogram(const std::vector<cv::Mat>& histograms) {
 }
 
 /**
- * INVERSÃO DE IMAGEM - NEGATIVO FOTOGRÁFICO
+ * INVERSÃO DE IMAGEM 
  * 
  * Funcionamento:
  * - Inverte os valores de intensidade de cada pixel
  * - Fórmula: Resultado(x,y) = 255 - Pixel(x,y)
  * - Pixels claros ficam escuros e vice-versa
- * 
- * Aplicações: Efeito negativo, realce de detalhes escuros, efeitos artísticos
  */
 cv::Mat Operation::invert(const cv::Mat& input) {
     cv::Mat result = input.clone();
