@@ -33,10 +33,12 @@ public:
     // Histograma
     static std::vector<cv::Mat> computeHistogram(const cv::Mat& input);
     static cv::Mat visualizeHistogram(const std::vector<cv::Mat>& histograms);
-    static cv::Mat equalizeHistogram(const cv::Mat& input);
     
     // Inverso da imagem
     static cv::Mat invert(const cv::Mat& input);
+    
+    // Método específico para teste de histograma
+    static void testHistogramImages();
 
 private:
     
