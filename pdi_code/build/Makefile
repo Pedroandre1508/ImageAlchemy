@@ -153,29 +153,101 @@ app/run.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/app/run.cpp.s
 .PHONY : app/run.cpp.s
 
-src/Operation.o: src/Operation.cpp.o
-.PHONY : src/Operation.o
+src/ConversorTonsCinza.o: src/ConversorTonsCinza.cpp.o
+.PHONY : src/ConversorTonsCinza.o
 
 # target to build an object file
-src/Operation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/Operation.cpp.o
-.PHONY : src/Operation.cpp.o
+src/ConversorTonsCinza.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o
+.PHONY : src/ConversorTonsCinza.cpp.o
 
-src/Operation.i: src/Operation.cpp.i
-.PHONY : src/Operation.i
+src/ConversorTonsCinza.i: src/ConversorTonsCinza.cpp.i
+.PHONY : src/ConversorTonsCinza.i
 
 # target to preprocess a source file
-src/Operation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/Operation.cpp.i
-.PHONY : src/Operation.cpp.i
+src/ConversorTonsCinza.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.i
+.PHONY : src/ConversorTonsCinza.cpp.i
 
-src/Operation.s: src/Operation.cpp.s
-.PHONY : src/Operation.s
+src/ConversorTonsCinza.s: src/ConversorTonsCinza.cpp.s
+.PHONY : src/ConversorTonsCinza.s
 
 # target to generate assembly for a file
-src/Operation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/Operation.cpp.s
-.PHONY : src/Operation.cpp.s
+src/ConversorTonsCinza.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.s
+.PHONY : src/ConversorTonsCinza.cpp.s
+
+src/OperacoesAritmeticas.o: src/OperacoesAritmeticas.cpp.o
+.PHONY : src/OperacoesAritmeticas.o
+
+# target to build an object file
+src/OperacoesAritmeticas.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o
+.PHONY : src/OperacoesAritmeticas.cpp.o
+
+src/OperacoesAritmeticas.i: src/OperacoesAritmeticas.cpp.i
+.PHONY : src/OperacoesAritmeticas.i
+
+# target to preprocess a source file
+src/OperacoesAritmeticas.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.i
+.PHONY : src/OperacoesAritmeticas.cpp.i
+
+src/OperacoesAritmeticas.s: src/OperacoesAritmeticas.cpp.s
+.PHONY : src/OperacoesAritmeticas.s
+
+# target to generate assembly for a file
+src/OperacoesAritmeticas.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.s
+.PHONY : src/OperacoesAritmeticas.cpp.s
+
+src/ProcessadorHistogramas.o: src/ProcessadorHistogramas.cpp.o
+.PHONY : src/ProcessadorHistogramas.o
+
+# target to build an object file
+src/ProcessadorHistogramas.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o
+.PHONY : src/ProcessadorHistogramas.cpp.o
+
+src/ProcessadorHistogramas.i: src/ProcessadorHistogramas.cpp.i
+.PHONY : src/ProcessadorHistogramas.i
+
+# target to preprocess a source file
+src/ProcessadorHistogramas.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.i
+.PHONY : src/ProcessadorHistogramas.cpp.i
+
+src/ProcessadorHistogramas.s: src/ProcessadorHistogramas.cpp.s
+.PHONY : src/ProcessadorHistogramas.s
+
+# target to generate assembly for a file
+src/ProcessadorHistogramas.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.s
+.PHONY : src/ProcessadorHistogramas.cpp.s
+
+src/ProcessadorImagens.o: src/ProcessadorImagens.cpp.o
+.PHONY : src/ProcessadorImagens.o
+
+# target to build an object file
+src/ProcessadorImagens.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o
+.PHONY : src/ProcessadorImagens.cpp.o
+
+src/ProcessadorImagens.i: src/ProcessadorImagens.cpp.i
+.PHONY : src/ProcessadorImagens.i
+
+# target to preprocess a source file
+src/ProcessadorImagens.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.i
+.PHONY : src/ProcessadorImagens.cpp.i
+
+src/ProcessadorImagens.s: src/ProcessadorImagens.cpp.s
+.PHONY : src/ProcessadorImagens.s
+
+# target to generate assembly for a file
+src/ProcessadorImagens.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.s
+.PHONY : src/ProcessadorImagens.cpp.s
 
 # Help Target
 help:
@@ -189,9 +261,18 @@ help:
 	@echo "... app/run.o"
 	@echo "... app/run.i"
 	@echo "... app/run.s"
-	@echo "... src/Operation.o"
-	@echo "... src/Operation.i"
-	@echo "... src/Operation.s"
+	@echo "... src/ConversorTonsCinza.o"
+	@echo "... src/ConversorTonsCinza.i"
+	@echo "... src/ConversorTonsCinza.s"
+	@echo "... src/OperacoesAritmeticas.o"
+	@echo "... src/OperacoesAritmeticas.i"
+	@echo "... src/OperacoesAritmeticas.s"
+	@echo "... src/ProcessadorHistogramas.o"
+	@echo "... src/ProcessadorHistogramas.i"
+	@echo "... src/ProcessadorHistogramas.s"
+	@echo "... src/ProcessadorImagens.o"
+	@echo "... src/ProcessadorImagens.i"
+	@echo "... src/ProcessadorImagens.s"
 .PHONY : help
 
 

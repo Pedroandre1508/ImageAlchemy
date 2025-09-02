@@ -83,30 +83,78 @@ CMakeFiles/pdi_code.dir/app/run.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pdi_code.dir/app/run.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/app/run.cpp" -o CMakeFiles/pdi_code.dir/app/run.cpp.s
 
-CMakeFiles/pdi_code.dir/src/Operation.cpp.o: CMakeFiles/pdi_code.dir/flags.make
-CMakeFiles/pdi_code.dir/src/Operation.cpp.o: ../src/Operation.cpp
-CMakeFiles/pdi_code.dir/src/Operation.cpp.o: CMakeFiles/pdi_code.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pdi_code.dir/src/Operation.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pdi_code.dir/src/Operation.cpp.o -MF CMakeFiles/pdi_code.dir/src/Operation.cpp.o.d -o CMakeFiles/pdi_code.dir/src/Operation.cpp.o -c "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/Operation.cpp"
+CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o: CMakeFiles/pdi_code.dir/flags.make
+CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o: ../src/ConversorTonsCinza.cpp
+CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o: CMakeFiles/pdi_code.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o -MF CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o.d -o CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o -c "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/ConversorTonsCinza.cpp"
 
-CMakeFiles/pdi_code.dir/src/Operation.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pdi_code.dir/src/Operation.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/Operation.cpp" > CMakeFiles/pdi_code.dir/src/Operation.cpp.i
+CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/ConversorTonsCinza.cpp" > CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.i
 
-CMakeFiles/pdi_code.dir/src/Operation.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pdi_code.dir/src/Operation.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/Operation.cpp" -o CMakeFiles/pdi_code.dir/src/Operation.cpp.s
+CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/ConversorTonsCinza.cpp" -o CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.s
+
+CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o: CMakeFiles/pdi_code.dir/flags.make
+CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o: ../src/OperacoesAritmeticas.cpp
+CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o: CMakeFiles/pdi_code.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o -MF CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o.d -o CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o -c "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/OperacoesAritmeticas.cpp"
+
+CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/OperacoesAritmeticas.cpp" > CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.i
+
+CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/OperacoesAritmeticas.cpp" -o CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.s
+
+CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o: CMakeFiles/pdi_code.dir/flags.make
+CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o: ../src/ProcessadorHistogramas.cpp
+CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o: CMakeFiles/pdi_code.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o -MF CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o.d -o CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o -c "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/ProcessadorHistogramas.cpp"
+
+CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/ProcessadorHistogramas.cpp" > CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.i
+
+CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/ProcessadorHistogramas.cpp" -o CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.s
+
+CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o: CMakeFiles/pdi_code.dir/flags.make
+CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o: ../src/ProcessadorImagens.cpp
+CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o: CMakeFiles/pdi_code.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o -MF CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o.d -o CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o -c "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/ProcessadorImagens.cpp"
+
+CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/ProcessadorImagens.cpp" > CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.i
+
+CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/src/ProcessadorImagens.cpp" -o CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.s
 
 # Object files for target pdi_code
 pdi_code_OBJECTS = \
 "CMakeFiles/pdi_code.dir/app/run.cpp.o" \
-"CMakeFiles/pdi_code.dir/src/Operation.cpp.o"
+"CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o" \
+"CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o" \
+"CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o" \
+"CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o"
 
 # External object files for target pdi_code
 pdi_code_EXTERNAL_OBJECTS =
 
 pdi_code: CMakeFiles/pdi_code.dir/app/run.cpp.o
-pdi_code: CMakeFiles/pdi_code.dir/src/Operation.cpp.o
+pdi_code: CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o
+pdi_code: CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o
+pdi_code: CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o
+pdi_code: CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o
 pdi_code: CMakeFiles/pdi_code.dir/build.make
 pdi_code: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.5.4d
 pdi_code: /usr/lib/x86_64-linux-gnu/libopencv_alphamat.so.4.5.4d
@@ -163,7 +211,7 @@ pdi_code: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.5.4d
 pdi_code: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.5.4d
 pdi_code: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.5.4d
 pdi_code: CMakeFiles/pdi_code.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable pdi_code"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable pdi_code"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pdi_code.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

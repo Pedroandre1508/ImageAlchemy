@@ -1,8 +1,14 @@
 file(REMOVE_RECURSE
   "CMakeFiles/pdi_code.dir/app/run.cpp.o"
   "CMakeFiles/pdi_code.dir/app/run.cpp.o.d"
-  "CMakeFiles/pdi_code.dir/src/Operation.cpp.o"
-  "CMakeFiles/pdi_code.dir/src/Operation.cpp.o.d"
+  "CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o"
+  "CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o.d"
+  "CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o"
+  "CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o.d"
+  "CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o"
+  "CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o.d"
+  "CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o"
+  "CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o.d"
   "pdi_code"
   "pdi_code.pdb"
 )

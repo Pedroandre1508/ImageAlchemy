@@ -1,6 +1,9 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include "Operation.hpp"
+#include "ProcessadorImagens.hpp"
+#include "ProcessadorHistogramas.hpp"
+#include "OperacoesAritmeticas.hpp"
+#include "ConversorTonsCinza.hpp"
 #include <filesystem>
 
 /**
@@ -75,9 +78,9 @@ int main()
     // Exibe a imagem original
     mostrarImagem("Original - Colorida1", imagemColorida1);
 
-    // Aplica as duas técnicas de médias de conversão para cinza
-    cv::Mat cinzaMediaAritmetica = Operation::toGrayscaleAverage(imagemColorida1);
-    cv::Mat cinzaMediaPonderada = Operation::toGrayscaleWeighted(imagemColorida1);
+    // Aplica as duas técnicas de médias de conversão para cinza usando ConversorTonsCinza
+    cv::Mat cinzaMediaAritmetica = ConversorTonsCinza::paraMediaAritmetica(imagemColorida1);
+    cv::Mat cinzaMediaPonderada = ConversorTonsCinza::paraMediaPonderada(imagemColorida1);
 
     // Exibe os resultados
     mostrarImagem("Conversão - Média Aritmética", cinzaMediaAritmetica);
@@ -87,12 +90,12 @@ int main()
     cv::imwrite("../data/result/cinza_media_aritmetica_colorido1.jpg", cinzaMediaAritmetica);
     cv::imwrite("../data/result/cinza_media_ponderada_colorido1.jpg", cinzaMediaPonderada);
 
-    // OPERAÇÕES ARITMÉTICAS COM ESCALAR
+    // OPERAÇÕES ARITMÉTICAS COM ESCALAR usando OperacoesAritmeticas
     // Aplica diferentes operações para demonstrar efeitos
-    cv::Mat imagemClareada = Operation::addScalar(imagemColorida1, 50);        // +50: Clareia
-    cv::Mat imagemEscurecida = Operation::subtractScalar(imagemColorida1, 30); // -30: Escurece
-    cv::Mat imagemContraste = Operation::multiplyScalar(imagemColorida1, 1.5); // *1.5: Aumenta contraste
-    cv::Mat imagemReduzida = Operation::divideScalar(imagemColorida1, 2.0);    // /2: Reduz intensidade
+    cv::Mat imagemClareada = OperacoesAritmeticas::somarEscalar(imagemColorida1, 50);        // +50: Clareia
+    cv::Mat imagemEscurecida = OperacoesAritmeticas::subtrairEscalar(imagemColorida1, 30); // -30: Escurece
+    cv::Mat imagemContraste = OperacoesAritmeticas::multiplicarEscalar(imagemColorida1, 1.5); // *1.5: Aumenta contraste
+    cv::Mat imagemReduzida = OperacoesAritmeticas::dividirEscalar(imagemColorida1, 2.0);    // /2: Reduz intensidade
 
     // Exibe sequência comparativa
     mostrarImagem("Original", imagemColorida1);
@@ -107,13 +110,13 @@ int main()
     cv::imwrite("../data/result/imagem_contraste.jpg", imagemContraste);
     cv::imwrite("../data/result/imagem_reduzida.jpg", imagemReduzida);
 
-    // 3. OPERAÇÕES ARITMÉTICAS ENTRE IMAGENS
+    // 3. OPERAÇÕES ARITMÉTICAS ENTRE IMAGENS usando OperacoesAritmeticas
 
     // Operações entre duas imagens coloridas diferentes
-    cv::Mat somaCores = Operation::addImages(imagemColorida1, imagemColorida2);
-    cv::Mat subtracaoCores = Operation::subtractImages(imagemColorida1, imagemColorida2);
-    cv::Mat multiplicacaoCores = Operation::multiplyImages(imagemColorida1, imagemColorida2);
-    cv::Mat divisaoCores = Operation::divideImages(imagemColorida1, imagemColorida2);
+    cv::Mat somaCores = OperacoesAritmeticas::somarImagens(imagemColorida1, imagemColorida2);
+    cv::Mat subtracaoCores = OperacoesAritmeticas::subtrairImagens(imagemColorida1, imagemColorida2);
+    cv::Mat multiplicacaoCores = OperacoesAritmeticas::multiplicarImagens(imagemColorida1, imagemColorida2);
+    cv::Mat divisaoCores = OperacoesAritmeticas::dividirImagens(imagemColorida1, imagemColorida2);
 
     // Exibe operações
     mostrarImagem("Colorida1 + Colorida2", somaCores);
@@ -127,30 +130,30 @@ int main()
     cv::imwrite("../data/result/multiplicacao_colorida1_colorida2.jpg", multiplicacaoCores);
     cv::imwrite("../data/result/divisao_colorida1_colorida2.jpg", divisaoCores);
 
-    // Converte Colorida1 para tons de cinza real
-    cv::Mat cinzaReal = Operation::toGrayscaleRealChannel(imagemColorida1);
+    // Converte Colorida1 para tons de cinza real usando ConversorTonsCinza
+    cv::Mat cinzaReal = ConversorTonsCinza::paraMediaPonderada(imagemColorida1);
 
     // Demonstra operações entre imagem colorida e imagem em tons de cinza
-    cv::Mat somaColoridaCinza = Operation::addImages(imagemColorida1, cinzaReal);
-    cv::Mat subtracaoColoridaCinza = Operation::subtractImages(imagemColorida1, cinzaReal);
-    cv::Mat multiplicacaoColoridaCinza = Operation::multiplyImages(imagemColorida1, cinzaReal);
-    cv::Mat divisaoColoridaCinza = Operation::divideImages(imagemColorida1, cinzaReal);
+    cv::Mat somaColoridaCinza = OperacoesAritmeticas::somarImagens(imagemColorida1, cinzaReal);
+    cv::Mat subtracaoColoridaCinza = OperacoesAritmeticas::subtrairImagens(imagemColorida1, cinzaReal);
+    cv::Mat multiplicacaoColoridaCinza = OperacoesAritmeticas::multiplicarImagens(imagemColorida1, cinzaReal);
+    cv::Mat divisaoColoridaCinza = OperacoesAritmeticas::dividirImagens(imagemColorida1, cinzaReal);
 
     // Exibe operações
-    mostrarImagem("Cinza Real (1 canal)", cinzaReal);
+    mostrarImagem("Cinza Real (convertido)", cinzaReal);
     mostrarImagem("Colorida + Cinza", somaColoridaCinza);
     mostrarImagem("Colorida - Cinza", subtracaoColoridaCinza);
     mostrarImagem("Colorida * Cinza", multiplicacaoColoridaCinza);
     mostrarImagem("Colorida / Cinza", divisaoColoridaCinza);
 
     // Salva operações
-    cv::imwrite("../data/result/cinza_real_1canal.jpg", cinzaReal);
+    cv::imwrite("../data/result/cinza_real_convertido.jpg", cinzaReal);
     cv::imwrite("../data/result/soma_colorida_cinza.jpg", somaColoridaCinza);
     cv::imwrite("../data/result/subtracao_colorida_cinza.jpg", subtracaoColoridaCinza);
     cv::imwrite("../data/result/multiplicacao_colorida_cinza.jpg", multiplicacaoColoridaCinza);
     cv::imwrite("../data/result/divisao_colorida_cinza.jpg", divisaoColoridaCinza);
 
-    // 4. LIMIARIZAÇÃO
+    // 4. LIMIARIZAÇÃO usando ProcessadorImagens
     cv::Mat imagemCinzaEColorido = cv::imread("../data/model/CinzaEColorido.jpeg");
     if (imagemCinzaEColorido.empty())
     {
@@ -159,9 +162,9 @@ int main()
     }
 
     // Aplica diferentes valores de limiar para demonstrar o efeito
-    cv::Mat limiarizada128 = Operation::threshold(imagemCinzaEColorido, 128, 255); // Limiar médio
-    cv::Mat limiarizada80 = Operation::threshold(imagemCinzaEColorido, 80, 255);   // Limiar baixo (mais branco)
-    cv::Mat limiarizada180 = Operation::threshold(imagemCinzaEColorido, 180, 255); // Limiar alto (mais preto)
+    cv::Mat limiarizada128 = ProcessadorImagens::aplicarLimiarizacao(imagemCinzaEColorido, 128, 255); // Limiar médio
+    cv::Mat limiarizada80 = ProcessadorImagens::aplicarLimiarizacao(imagemCinzaEColorido, 80, 255);   // Limiar baixo (mais branco)
+    cv::Mat limiarizada180 = ProcessadorImagens::aplicarLimiarizacao(imagemCinzaEColorido, 180, 255); // Limiar alto (mais preto)
 
     // Mostra os diferentes limiares
     mostrarImagem("Original - CinzaEColorido", imagemCinzaEColorido);
@@ -174,11 +177,11 @@ int main()
     cv::imwrite("../data/result/limiarizada_80_cinzaecolorido.jpg", limiarizada80);
     cv::imwrite("../data/result/limiarizada_180_cinzaecolorido.jpg", limiarizada180);
 
-    // 5. ISOLAMENTO DE CANAIS - ANÁLISE DE COMPONENTES DE COR
+    // 5. ISOLAMENTO DE CANAIS - ANÁLISE DE COMPONENTES DE COR usando ProcessadorImagens
     // Isola cada canal de cor individualmente usando a imagem já carregada
-    cv::Mat canalAzul = Operation::isolateChannel(imagemColorida2, 0);     // Canal azul (B)
-    cv::Mat canalVerde = Operation::isolateChannel(imagemColorida2, 1);    // Canal verde (G)
-    cv::Mat canalVermelho = Operation::isolateChannel(imagemColorida2, 2); // Canal vermelho (R)
+    cv::Mat canalAzul = ProcessadorImagens::isolarCanal(imagemColorida2, 0);     // Canal azul (B)
+    cv::Mat canalVerde = ProcessadorImagens::isolarCanal(imagemColorida2, 1);    // Canal verde (G)
+    cv::Mat canalVermelho = ProcessadorImagens::isolarCanal(imagemColorida2, 2); // Canal vermelho (R)
 
     // Exibe cada componente de cor isolada
     mostrarImagem("Canal Azul Isolado", canalAzul);
@@ -190,11 +193,11 @@ int main()
     cv::imwrite("../data/result/canal_verde.jpg", canalVerde);
     cv::imwrite("../data/result/canal_vermelho.jpg", canalVermelho);
 
-    // 6. ANÁLISE DE HISTOGRAMA - COMPUTAÇÃO E VISUALIZAÇÃO
+    // 6. ANÁLISE DE HISTOGRAMA - COMPUTAÇÃO E VISUALIZAÇÃO usando ProcessadorHistogramas
 
     // TESTE: Histograma da imagemColorido1
-    std::vector<cv::Mat> histogramaColorido1 = Operation::computeHistogram(imagemColorida1);
-    cv::Mat imagemHistogramaColorido1 = Operation::visualizeHistogram(histogramaColorido1);
+    std::vector<cv::Mat> histogramaColorido1 = ProcessadorHistogramas::calcularHistograma(imagemColorida1);
+    cv::Mat imagemHistogramaColorido1 = ProcessadorHistogramas::visualizarHistograma(histogramaColorido1);
 
     mostrarImagem("Colorido1 - Original", imagemColorida1);
     mostrarImagem("Colorido1 - Histograma", imagemHistogramaColorido1);
@@ -203,8 +206,8 @@ int main()
     cv::imwrite("../data/result/histograma_colorido1.jpg", imagemHistogramaColorido1);
 
     // TESTE: Histograma da imagem Colorido2
-    std::vector<cv::Mat> histogramaColorido2 = Operation::computeHistogram(imagemColorida2);
-    cv::Mat imagemHistogramaColorido2 = Operation::visualizeHistogram(histogramaColorido2);
+    std::vector<cv::Mat> histogramaColorido2 = ProcessadorHistogramas::calcularHistograma(imagemColorida2);
+    cv::Mat imagemHistogramaColorido2 = ProcessadorHistogramas::visualizarHistograma(histogramaColorido2);
 
     mostrarImagem("Colorido2 - Original", imagemColorida2);
     mostrarImagem("Colorido2 - Histograma", imagemHistogramaColorido2);
@@ -213,8 +216,8 @@ int main()
     cv::imwrite("../data/result/histograma_colorido2.jpg", imagemHistogramaColorido2);
 
     // TESTE: Histograma da imagem CinzaEColorido
-    std::vector<cv::Mat> histogramaCinzaEColorido = Operation::computeHistogram(imagemCinzaEColorido);
-    cv::Mat imagemHistogramaCinzaEColorido = Operation::visualizeHistogram(histogramaCinzaEColorido);
+    std::vector<cv::Mat> histogramaCinzaEColorido = ProcessadorHistogramas::calcularHistograma(imagemCinzaEColorido);
+    cv::Mat imagemHistogramaCinzaEColorido = ProcessadorHistogramas::visualizarHistograma(histogramaCinzaEColorido);
 
     // mostra imagem
     mostrarImagem("CinzaEColorido - Histograma", imagemHistogramaCinzaEColorido);
@@ -222,7 +225,7 @@ int main()
     // Salva Histograma
     cv::imwrite("../data/result/histograma_cinzaecolorido.jpg", imagemHistogramaCinzaEColorido);
 
-    // 7. INVERSÃO DE IMAGEM
+    // 7. INVERSÃO DE IMAGEM usando ProcessadorImagens
     cv::Mat imagemInverso = cv::imread("../data/model/Inverso.jpeg");
     if (imagemInverso.empty())
     {
@@ -231,7 +234,7 @@ int main()
     }
 
     // Aplica inversão (efeito negativo)
-    cv::Mat imagemInvertida = Operation::invert(imagemInverso);
+    cv::Mat imagemInvertida = ProcessadorImagens::inverterImagem(imagemInverso);
 
     // Exibe o invertida
     mostrarImagem("Original - Inverso", imagemInverso);
@@ -244,5 +247,9 @@ int main()
     std::cout << "\n=== PROCESSAMENTO CONCLUÍDO ===" << std::endl;
     std::cout << "Todas as imagens foram salvas na pasta result/" << std::endl;
 
+    // Aguarda tecla final e fecha todas as janelas
+    cv::waitKey(0);
+    cv::destroyAllWindows();
+    
     return 0;
 }

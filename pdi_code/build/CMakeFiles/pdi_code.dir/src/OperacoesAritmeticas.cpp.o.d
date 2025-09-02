@@ -1,7 +1,7 @@
-CMakeFiles/pdi_code.dir/src/Operation.cpp.o: \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/src/Operation.cpp \
+CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o: \
+ /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/src/OperacoesAritmeticas.cpp \
  /usr/include/stdc-predef.h \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/include/Operation.hpp \
+ /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/include/OperacoesAritmeticas.hpp \
  /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/include/opencv4/opencv2/core.hpp \
