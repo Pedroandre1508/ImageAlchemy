@@ -1,5 +1,11 @@
 #include "ProcessadorHistogramas.hpp"
 #include <algorithm>
+#include <cmath>
+
+// Função auxiliar para arredondamento manual
+inline int roundToInt(double value) {
+    return static_cast<int>(value + 0.5);
+}
 
 std::vector<cv::Mat> ProcessadorHistogramas::calcularHistograma(const cv::Mat& imagem) {
     std::vector<cv::Mat> histogramas;
@@ -51,8 +57,8 @@ cv::Mat ProcessadorHistogramas::visualizarHistograma(const std::vector<cv::Mat>&
         else cor = cv::Scalar(0, 0, 255); // Vermelho
 
         for (int i = 1; i < 256; i++) {
-            int h1 = cvRound((double)histogramas[c].at<int>(i - 1) * altura / valorMaximo);
-            int h2 = cvRound((double)histogramas[c].at<int>(i) * altura / valorMaximo);
+            int h1 = roundToInt((double)histogramas[c].at<int>(i - 1) * altura / valorMaximo);
+            int h2 = roundToInt((double)histogramas[c].at<int>(i) * altura / valorMaximo);
             cv::line(imagemHist,
                 cv::Point(larguraBin * (i - 1), altura - h1),
                 cv::Point(larguraBin * i, altura - h2),
@@ -94,7 +100,7 @@ cv::Mat ProcessadorHistogramas::equalizarHistograma(const cv::Mat& imagem) {
         int totalPixels = imagem.rows * imagem.cols;
         uchar lut[256];
         for (int i = 0; i < 256; i++) {
-            lut[i] = static_cast<uchar>(std::round((cdf[i] - cdfMin) * 255.0 / (totalPixels - cdfMin)));
+            lut[i] = static_cast<uchar>(roundToInt((cdf[i] - cdfMin) * 255.0 / (totalPixels - cdfMin)));
         }
 
         // Aplicar equalização
@@ -130,7 +136,7 @@ cv::Mat ProcessadorHistogramas::equalizarHistograma(const cv::Mat& imagem) {
             int totalPixels = imagem.rows * imagem.cols;
             uchar lut[256];
             for (int i = 0; i < 256; i++) {
-                lut[i] = static_cast<uchar>(std::round((cdf[i] - cdfMin) * 255.0 / (totalPixels - cdfMin)));
+                lut[i] = static_cast<uchar>(roundToInt((cdf[i] - cdfMin) * 255.0 / (totalPixels - cdfMin)));
             }
 
             for (int y = 0; y < imagem.rows; y++) {

@@ -1,6 +1,11 @@
 #include "OperacoesAritmeticas.hpp"
 #include <algorithm>
 
+// Função auxiliar para saturação manual
+inline uchar saturate(int value) {
+    return static_cast<uchar>(std::max(0, std::min(255, value)));
+}
+
 cv::Mat OperacoesAritmeticas::somarEscalar(const cv::Mat& imagem, double valor) {
     cv::Mat resultado = imagem.clone();
     
@@ -10,11 +15,11 @@ cv::Mat OperacoesAritmeticas::somarEscalar(const cv::Mat& imagem, double valor) 
                 cv::Vec3b pixel = imagem.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
                     int novoValor = pixel[c] + static_cast<int>(valor);
-                    resultado.at<cv::Vec3b>(y, x)[c] = cv::saturate_cast<uchar>(novoValor);
+                    resultado.at<cv::Vec3b>(y, x)[c] = saturate(novoValor);
                 }
             } else if (imagem.channels() == 1) {
                 int novoValor = imagem.at<uchar>(y, x) + static_cast<int>(valor);
-                resultado.at<uchar>(y, x) = cv::saturate_cast<uchar>(novoValor);
+                resultado.at<uchar>(y, x) = saturate(novoValor);
             }
         }
     }
@@ -30,11 +35,11 @@ cv::Mat OperacoesAritmeticas::subtrairEscalar(const cv::Mat& imagem, double valo
                 cv::Vec3b pixel = imagem.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
                     int novoValor = pixel[c] - static_cast<int>(valor);
-                    resultado.at<cv::Vec3b>(y, x)[c] = cv::saturate_cast<uchar>(novoValor);
+                    resultado.at<cv::Vec3b>(y, x)[c] = saturate(novoValor);
                 }
             } else if (imagem.channels() == 1) {
                 int novoValor = imagem.at<uchar>(y, x) - static_cast<int>(valor);
-                resultado.at<uchar>(y, x) = cv::saturate_cast<uchar>(novoValor);
+                resultado.at<uchar>(y, x) = saturate(novoValor);
             }
         }
     }
@@ -49,12 +54,12 @@ cv::Mat OperacoesAritmeticas::multiplicarEscalar(const cv::Mat& imagem, double v
             if (imagem.channels() == 3) {
                 cv::Vec3b pixel = imagem.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
-                    double novoValor = pixel[c] * valor;
-                    resultado.at<cv::Vec3b>(y, x)[c] = cv::saturate_cast<uchar>(novoValor);
+                    int novoValor = static_cast<int>(pixel[c] * valor);
+                    resultado.at<cv::Vec3b>(y, x)[c] = saturate(novoValor);
                 }
             } else if (imagem.channels() == 1) {
-                double novoValor = imagem.at<uchar>(y, x) * valor;
-                resultado.at<uchar>(y, x) = cv::saturate_cast<uchar>(novoValor);
+                int novoValor = static_cast<int>(imagem.at<uchar>(y, x) * valor);
+                resultado.at<uchar>(y, x) = saturate(novoValor);
             }
         }
     }
@@ -74,12 +79,12 @@ cv::Mat OperacoesAritmeticas::dividirEscalar(const cv::Mat& imagem, double valor
             if (imagem.channels() == 3) {
                 cv::Vec3b pixel = imagem.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
-                    double novoValor = pixel[c] / valor;
-                    resultado.at<cv::Vec3b>(y, x)[c] = cv::saturate_cast<uchar>(novoValor);
+                    int novoValor = static_cast<int>(pixel[c] / valor);
+                    resultado.at<cv::Vec3b>(y, x)[c] = saturate(novoValor);
                 }
             } else if (imagem.channels() == 1) {
-                double novoValor = imagem.at<uchar>(y, x) / valor;
-                resultado.at<uchar>(y, x) = cv::saturate_cast<uchar>(novoValor);
+                int novoValor = static_cast<int>(imagem.at<uchar>(y, x) / valor);
+                resultado.at<uchar>(y, x) = saturate(novoValor);
             }
         }
     }
@@ -87,7 +92,6 @@ cv::Mat OperacoesAritmeticas::dividirEscalar(const cv::Mat& imagem, double valor
 }
 
 cv::Mat OperacoesAritmeticas::somarImagens(const cv::Mat& img1, const cv::Mat& img2) {
-    // Garantir que as imagens tenham o mesmo tamanho
     int altura = std::min(img1.rows, img2.rows);
     int largura = std::min(img1.cols, img2.cols);
     cv::Mat resultado(altura, largura, img1.type());
@@ -99,7 +103,7 @@ cv::Mat OperacoesAritmeticas::somarImagens(const cv::Mat& img1, const cv::Mat& i
                 cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
                     int soma = pixel1[c] + pixel2[c];
-                    resultado.at<cv::Vec3b>(y, x)[c] = cv::saturate_cast<uchar>(soma);
+                    resultado.at<cv::Vec3b>(y, x)[c] = saturate(soma);
                 }
             }
         }
@@ -108,7 +112,6 @@ cv::Mat OperacoesAritmeticas::somarImagens(const cv::Mat& img1, const cv::Mat& i
 }
 
 cv::Mat OperacoesAritmeticas::subtrairImagens(const cv::Mat& img1, const cv::Mat& img2) {
-    // Garantir que as imagens tenham o mesmo tamanho
     int altura = std::min(img1.rows, img2.rows);
     int largura = std::min(img1.cols, img2.cols);
     cv::Mat resultado(altura, largura, img1.type());
@@ -120,7 +123,7 @@ cv::Mat OperacoesAritmeticas::subtrairImagens(const cv::Mat& img1, const cv::Mat
                 cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
                     int diferenca = pixel1[c] - pixel2[c];
-                    resultado.at<cv::Vec3b>(y, x)[c] = cv::saturate_cast<uchar>(diferenca);
+                    resultado.at<cv::Vec3b>(y, x)[c] = saturate(diferenca);
                 }
             }
         }
@@ -129,7 +132,6 @@ cv::Mat OperacoesAritmeticas::subtrairImagens(const cv::Mat& img1, const cv::Mat
 }
 
 cv::Mat OperacoesAritmeticas::multiplicarImagens(const cv::Mat& img1, const cv::Mat& img2) {
-    // Garantir que as imagens tenham o mesmo tamanho
     int altura = std::min(img1.rows, img2.rows);
     int largura = std::min(img1.cols, img2.cols);
     cv::Mat resultado(altura, largura, img1.type());
@@ -141,7 +143,7 @@ cv::Mat OperacoesAritmeticas::multiplicarImagens(const cv::Mat& img1, const cv::
                 cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
                     int produto = (pixel1[c] * pixel2[c]) / 255;
-                    resultado.at<cv::Vec3b>(y, x)[c] = cv::saturate_cast<uchar>(produto);
+                    resultado.at<cv::Vec3b>(y, x)[c] = saturate(produto);
                 }
             }
         }
@@ -150,7 +152,6 @@ cv::Mat OperacoesAritmeticas::multiplicarImagens(const cv::Mat& img1, const cv::
 }
 
 cv::Mat OperacoesAritmeticas::dividirImagens(const cv::Mat& img1, const cv::Mat& img2) {
-    // Garantir que as imagens tenham o mesmo tamanho
     int altura = std::min(img1.rows, img2.rows);
     int largura = std::min(img1.cols, img2.cols);
     cv::Mat resultado(altura, largura, img1.type());
@@ -165,7 +166,7 @@ cv::Mat OperacoesAritmeticas::dividirImagens(const cv::Mat& img1, const cv::Mat&
                         resultado.at<cv::Vec3b>(y, x)[c] = 255;
                     } else {
                         int divisao = (pixel1[c] * 255) / pixel2[c];
-                        resultado.at<cv::Vec3b>(y, x)[c] = cv::saturate_cast<uchar>(divisao);
+                        resultado.at<cv::Vec3b>(y, x)[c] = saturate(divisao);
                     }
                 }
             }

@@ -1,7 +1,24 @@
 #include "Operation.hpp"
 #include <algorithm>
+#include <iostream>
 
 Operation::Operation() {}
+
+// Função auxiliar para saturação manual com documentação explícita
+inline uchar saturateValue(int value) {
+    // TRATAMENTO DE OVERFLOW/UNDERFLOW:
+    // - Valores < 0 (underflow) → 0
+    // - Valores > 255 (overflow) → 255
+    // - Valores válidos [0,255] → mantém valor original
+    if (value < 0) return 0;        // Tratamento de underflow
+    if (value > 255) return 255;    // Tratamento de overflow
+    return static_cast<uchar>(value);
+}
+
+// Função auxiliar para arredondamento manual (substitui cvRound)
+inline int roundToInt(double value) {
+    return static_cast<int>(value + 0.5);
+}
 
 /**
  * CONVERSÃO PARA TONS DE CINZA - MÉDIA ARITMÉTICA
@@ -66,6 +83,38 @@ cv::Mat Operation::toGrayscaleWeighted(const cv::Mat& input) {
 }
 
 /**
+ * CONVERSÃO PARA TONS DE CINZA REAL (1 CANAL) - SEM OPENCV
+ * 
+ * Funcionamento:
+ * - Converte imagem colorida (3 canais) para escala de cinza real (1 canal)
+ * - Usa média ponderada ITU-R BT.709 para melhor qualidade
+ * - Implementação manual sem usar cv::cvtColor()
+ */
+cv::Mat Operation::toGrayscaleRealChannel(const cv::Mat& input) {
+    if (input.channels() != 3) {
+        std::cerr << "Erro: Imagem deve ter 3 canais para conversão!" << std::endl;
+        return input.clone();
+    }
+    
+    // Cria matriz de 1 canal
+    cv::Mat output(input.rows, input.cols, CV_8UC1);
+    
+    for (int y = 0; y < input.rows; y++) {
+        for (int x = 0; x < input.cols; x++) {
+            cv::Vec3b pixel = input.at<cv::Vec3b>(y, x);
+            
+            // Aplica os pesos padrão da ITU-R BT.709 para luminância
+            // pixel[0] = Blue, pixel[1] = Green, pixel[2] = Red
+            uchar cinza = static_cast<uchar>(0.114 * pixel[0] + 0.587 * pixel[1] + 0.299 * pixel[2]);
+            
+            // Salva no formato de 1 canal
+            output.at<uchar>(y, x) = cinza;
+        }
+    }
+    return output;
+}
+
+/**
  * SOMA DE IMAGENS - OPERAÇÃO PIXEL A PIXEL
  * 
  * Funcionamento:
@@ -82,37 +131,37 @@ cv::Mat Operation::addImages(const cv::Mat& img1, const cv::Mat& img2) {
     for (int y = 0; y < rows; y++) {
         for (int x = 0; x < cols; x++) {
             if (img1.channels() == 3 && img2.channels() == 3) {
-                // Colorida + Colorida
                 cv::Vec3b pixel1 = img1.at<cv::Vec3b>(y, x);
                 cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
+                    // TRATAMENTO DE OVERFLOW na soma de imagens
                     int sum = pixel1[c] + pixel2[c];
-                    result.at<cv::Vec3b>(y, x)[c] = std::min(sum, 255);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(sum);
                 }
             } else if (img1.channels() == 3 && img2.channels() == 1) {
-                // Colorida + Cinza
                 cv::Vec3b pixel1 = img1.at<cv::Vec3b>(y, x);
                 uchar pixel2 = img2.at<uchar>(y, x);
                 for (int c = 0; c < 3; c++) {
+                    // TRATAMENTO DE OVERFLOW (colorida + cinza)
                     int sum = pixel1[c] + pixel2;
-                    result.at<cv::Vec3b>(y, x)[c] = std::min(sum, 255);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(sum);
                 }
             } else if (img1.channels() == 1 && img2.channels() == 3) {
-                // Cinza + Colorida (ajusta o tipo de resultado)
                 result = cv::Mat(rows, cols, img2.type());
                 uchar pixel1 = img1.at<uchar>(y, x);
                 cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
+                    // TRATAMENTO DE OVERFLOW (cinza + colorida)
                     int sum = pixel1 + pixel2[c];
-                    result.at<cv::Vec3b>(y, x)[c] = std::min(sum, 255);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(sum);
                 }
             } else if (img1.channels() == 1 && img2.channels() == 1) {
-                // Cinza + Cinza
                 result = cv::Mat(rows, cols, CV_8UC1);
                 uchar pixel1 = img1.at<uchar>(y, x);
                 uchar pixel2 = img2.at<uchar>(y, x);
+                // TRATAMENTO DE OVERFLOW (cinza + cinza)
                 int sum = pixel1 + pixel2;
-                result.at<uchar>(y, x) = std::min(sum, 255);
+                result.at<uchar>(y, x) = saturateValue(sum);
             }
         }
     }
@@ -138,37 +187,37 @@ cv::Mat Operation::subtractImages(const cv::Mat& img1, const cv::Mat& img2) {
     for (int y = 0; y < rows; y++) {
         for (int x = 0; x < cols; x++) {
             if (img1.channels() == 3 && img2.channels() == 3) {
-                // Colorida - Colorida
                 cv::Vec3b pixel1 = img1.at<cv::Vec3b>(y, x);
                 cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
+                    // TRATAMENTO DE UNDERFLOW na subtração
                     int diff = pixel1[c] - pixel2[c];
-                    result.at<cv::Vec3b>(y, x)[c] = std::max(diff, 0);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(diff);
                 }
             } else if (img1.channels() == 3 && img2.channels() == 1) {
-                // Colorida - Cinza
                 cv::Vec3b pixel1 = img1.at<cv::Vec3b>(y, x);
                 uchar pixel2 = img2.at<uchar>(y, x);
                 for (int c = 0; c < 3; c++) {
+                    // TRATAMENTO DE UNDERFLOW (colorida - cinza)
                     int diff = pixel1[c] - pixel2;
-                    result.at<cv::Vec3b>(y, x)[c] = std::max(diff, 0);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(diff);
                 }
             } else if (img1.channels() == 1 && img2.channels() == 3) {
-                // Cinza - Colorida
                 result = cv::Mat(rows, cols, img2.type());
                 uchar pixel1 = img1.at<uchar>(y, x);
                 cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
+                    // TRATAMENTO DE UNDERFLOW (cinza - colorida)
                     int diff = pixel1 - pixel2[c];
-                    result.at<cv::Vec3b>(y, x)[c] = std::max(diff, 0);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(diff);
                 }
             } else if (img1.channels() == 1 && img2.channels() == 1) {
-                // Cinza - Cinza
                 result = cv::Mat(rows, cols, CV_8UC1);
                 uchar pixel1 = img1.at<uchar>(y, x);
                 uchar pixel2 = img2.at<uchar>(y, x);
+                // TRATAMENTO DE UNDERFLOW (cinza - cinza)
                 int diff = pixel1 - pixel2;
-                result.at<uchar>(y, x) = std::max(diff, 0);
+                result.at<uchar>(y, x) = saturateValue(diff);
             }
         }
     }
@@ -194,37 +243,33 @@ cv::Mat Operation::multiplyImages(const cv::Mat& img1, const cv::Mat& img2) {
     for (int y = 0; y < rows; y++) {
         for (int x = 0; x < cols; x++) {
             if (img1.channels() == 3 && img2.channels() == 3) {
-                // Colorida * Colorida
                 cv::Vec3b pixel1 = img1.at<cv::Vec3b>(y, x);
                 cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
                     int prod = pixel1[c] * pixel2[c] / 255;
-                    result.at<cv::Vec3b>(y, x)[c] = std::min(prod, 255);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(prod);
                 }
             } else if (img1.channels() == 3 && img2.channels() == 1) {
-                // Colorida * Cinza
                 cv::Vec3b pixel1 = img1.at<cv::Vec3b>(y, x);
                 uchar pixel2 = img2.at<uchar>(y, x);
                 for (int c = 0; c < 3; c++) {
                     int prod = pixel1[c] * pixel2 / 255;
-                    result.at<cv::Vec3b>(y, x)[c] = std::min(prod, 255);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(prod);
                 }
             } else if (img1.channels() == 1 && img2.channels() == 3) {
-                // Cinza * Colorida
                 result = cv::Mat(rows, cols, img2.type());
                 uchar pixel1 = img1.at<uchar>(y, x);
                 cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
                     int prod = pixel1 * pixel2[c] / 255;
-                    result.at<cv::Vec3b>(y, x)[c] = std::min(prod, 255);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(prod);
                 }
             } else if (img1.channels() == 1 && img2.channels() == 1) {
-                // Cinza * Cinza
                 result = cv::Mat(rows, cols, CV_8UC1);
                 uchar pixel1 = img1.at<uchar>(y, x);
                 uchar pixel2 = img2.at<uchar>(y, x);
                 int prod = pixel1 * pixel2 / 255;
-                result.at<uchar>(y, x) = std::min(prod, 255);
+                result.at<uchar>(y, x) = saturateValue(prod);
             }
         }
     }
@@ -251,40 +296,45 @@ cv::Mat Operation::divideImages(const cv::Mat& img1, const cv::Mat& img2) {
     for (int y = 0; y < rows; y++) {
         for (int x = 0; x < cols; x++) {
             if (img1.channels() == 3 && img2.channels() == 3) {
-                // Colorida / Colorida
                 cv::Vec3b pixel1 = img1.at<cv::Vec3b>(y, x);
                 cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
                     uchar denominator = pixel2[c];
                     uchar numerator = pixel1[c];
-                    uchar value = denominator == 0 ? 255 : std::min((numerator * 255) / denominator, 255);
-                    result.at<cv::Vec3b>(y, x)[c] = value;
+                    
+                    // TRATAMENTO DE DIVISÃO POR ZERO pixel a pixel
+                    if (denominator == 0) {
+                        result.at<cv::Vec3b>(y, x)[c] = 255;  // Valor máximo para div/0
+                    } else {
+                        // Normalização com tratamento de overflow
+                        int division = (numerator * 255) / denominator;
+                        result.at<cv::Vec3b>(y, x)[c] = saturateValue(division);
+                    }
                 }
             } else if (img1.channels() == 3 && img2.channels() == 1) {
-                // Colorida / Cinza
                 cv::Vec3b pixel1 = img1.at<cv::Vec3b>(y, x);
                 uchar pixel2 = img2.at<uchar>(y, x);
                 for (int c = 0; c < 3; c++) {
-                    uchar value = pixel2 == 0 ? 255 : std::min((pixel1[c] * 255) / pixel2, 255);
-                    result.at<cv::Vec3b>(y, x)[c] = value;
-                }
-            } else if (img1.channels() == 1 && img2.channels() == 3) {
-                // Cinza / Colorida
-                result = cv::Mat(rows, cols, img2.type());
-                uchar pixel1 = img1.at<uchar>(y, x);
-                cv::Vec3b pixel2 = img2.at<cv::Vec3b>(y, x);
-                for (int c = 0; c < 3; c++) {
-                    uchar denominator = pixel2[c];
-                    uchar value = denominator == 0 ? 255 : std::min((pixel1 * 255) / denominator, 255);
-                    result.at<cv::Vec3b>(y, x)[c] = value;
+                    // TRATAMENTO DE DIVISÃO POR ZERO (colorida / cinza)
+                    if (pixel2 == 0) {
+                        result.at<cv::Vec3b>(y, x)[c] = 255;
+                    } else {
+                        int division = (pixel1[c] * 255) / pixel2;
+                        result.at<cv::Vec3b>(y, x)[c] = saturateValue(division);
+                    }
                 }
             } else if (img1.channels() == 1 && img2.channels() == 1) {
-                // Cinza / Cinza
                 result = cv::Mat(rows, cols, CV_8UC1);
                 uchar pixel1 = img1.at<uchar>(y, x);
                 uchar pixel2 = img2.at<uchar>(y, x);
-                uchar value = pixel2 == 0 ? 255 : std::min((pixel1 * 255) / pixel2, 255);
-                result.at<uchar>(y, x) = value;
+                
+                // TRATAMENTO DE DIVISÃO POR ZERO (cinza / cinza)
+                if (pixel2 == 0) {
+                    result.at<uchar>(y, x) = 255;
+                } else {
+                    int division = (pixel1 * 255) / pixel2;
+                    result.at<uchar>(y, x) = saturateValue(division);
+                }
             }
         }
     }
@@ -310,15 +360,15 @@ cv::Mat Operation::addScalar(const cv::Mat& input, double scalar) {
     for (int y = 0; y < rows; y++) {
         for (int x = 0; x < cols; x++) {
             if (channels == 1) {
-                // Para imagens em escala de cinza
-                int sum = input.at<uchar>(y, x) + scalar;
-                result.at<uchar>(y, x) = std::min(sum, 255);
+                // TRATAMENTO DE OVERFLOW/UNDERFLOW na soma com escalar
+                int sum = input.at<uchar>(y, x) + static_cast<int>(scalar);
+                result.at<uchar>(y, x) = saturateValue(sum);
             } else if (channels == 3) {
-                // Para imagens coloridas (aplica em todos os canais)
                 cv::Vec3b pixel = input.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
-                    int sum = pixel[c] + scalar;
-                    result.at<cv::Vec3b>(y, x)[c] = std::min(sum, 255);
+                    // TRATAMENTO DE OVERFLOW/UNDERFLOW para cada canal
+                    int sum = pixel[c] + static_cast<int>(scalar);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(sum);
                 }
             }
         }
@@ -345,13 +395,15 @@ cv::Mat Operation::subtractScalar(const cv::Mat& input, double scalar) {
     for (int y = 0; y < rows; y++) {
         for (int x = 0; x < cols; x++) {
             if (channels == 1) {
-                int diff = input.at<uchar>(y, x) - scalar;
-                result.at<uchar>(y, x) = std::max(diff, 0);
+                // TRATAMENTO DE UNDERFLOW na subtração
+                int diff = input.at<uchar>(y, x) - static_cast<int>(scalar);
+                result.at<uchar>(y, x) = saturateValue(diff);
             } else if (channels == 3) {
                 cv::Vec3b pixel = input.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
-                    int diff = pixel[c] - scalar;
-                    result.at<cv::Vec3b>(y, x)[c] = std::max(diff, 0);
+                    // TRATAMENTO DE UNDERFLOW para cada canal
+                    int diff = pixel[c] - static_cast<int>(scalar);
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(diff);
                 }
             }
         }
@@ -379,13 +431,15 @@ cv::Mat Operation::multiplyScalar(const cv::Mat& input, double scalar) {
     for (int y = 0; y < rows; y++) {
         for (int x = 0; x < cols; x++) {
             if (channels == 1) {
-                int prod = static_cast<int>(input.at<uchar>(y, x) * scalar);
-                result.at<uchar>(y, x) = std::min(prod, 255);
+                // TRATAMENTO DE OVERFLOW na multiplicação
+                double prod = input.at<uchar>(y, x) * scalar;
+                result.at<uchar>(y, x) = saturateValue(static_cast<int>(prod));
             } else if (channels == 3) {
                 cv::Vec3b pixel = input.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
-                    int prod = static_cast<int>(pixel[c] * scalar);
-                    result.at<cv::Vec3b>(y, x)[c] = std::min(prod, 255);
+                    // TRATAMENTO DE OVERFLOW para cada canal
+                    double prod = pixel[c] * scalar;
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(static_cast<int>(prod));
                 }
             }
         }
@@ -409,16 +463,25 @@ cv::Mat Operation::divideScalar(const cv::Mat& input, double scalar) {
     int cols = input.cols;
     int channels = input.channels();
 
+    // TRATAMENTO DE DIVISÃO POR ZERO - Verificação preventiva
+    if (std::abs(scalar) < 1e-10) {  // Considera valores muito próximos de zero
+        std::cerr << "AVISO: Divisão por zero detectada! Valor escalar: " << scalar << std::endl;
+        std::cerr << "Retornando imagem original sem modificações." << std::endl;
+        return result;  // Retorna imagem original sem mudanças
+    }
+
     for (int y = 0; y < rows; y++) {
         for (int x = 0; x < cols; x++) {
             if (channels == 1) {
-                int value = scalar == 0 ? 255 : static_cast<int>(input.at<uchar>(y, x) / scalar);
-                result.at<uchar>(y, x) = std::min(value, 255);
+                // Divisão segura com tratamento de precisão
+                double quotient = input.at<uchar>(y, x) / scalar;
+                result.at<uchar>(y, x) = saturateValue(static_cast<int>(quotient));
             } else if (channels == 3) {
                 cv::Vec3b pixel = input.at<cv::Vec3b>(y, x);
                 for (int c = 0; c < 3; c++) {
-                    int value = scalar == 0 ? 255 : static_cast<int>(pixel[c] / scalar);
-                    result.at<cv::Vec3b>(y, x)[c] = std::min(value, 255);
+                    // Divisão segura para cada canal
+                    double quotient = pixel[c] / scalar;
+                    result.at<cv::Vec3b>(y, x)[c] = saturateValue(static_cast<int>(quotient));
                 }
             }
         }
@@ -545,7 +608,7 @@ std::vector<cv::Mat> Operation::computeHistogram(const cv::Mat& input) {
  */
 cv::Mat Operation::visualizeHistogram(const std::vector<cv::Mat>& histograms) {
     int hist_w = 512, hist_h = 400;
-    int bin_w = cvRound((double)hist_w / 256);
+    int bin_w = hist_w / 256;  // Usando divisão inteira em vez de cvRound
     cv::Mat histImage(hist_h, hist_w, CV_8UC3, cv::Scalar(0, 0, 0));
 
     // Encontra o valor máximo para normalização
@@ -555,24 +618,33 @@ cv::Mat Operation::visualizeHistogram(const std::vector<cv::Mat>& histograms) {
             maxVal = std::max(maxVal, hist.at<int>(i));
         }
     }
-    if (maxVal == 0) maxVal = 1;
+    
+    // TRATAMENTO DE DIVISÃO POR ZERO na normalização
+    if (maxVal == 0) {
+        std::cerr << "AVISO: Histograma vazio (maxVal = 0)! Definindo maxVal = 1." << std::endl;
+        maxVal = 1;
+    }
 
     // Normaliza e desenha cada histograma
     for (size_t c = 0; c < histograms.size(); c++) {
         cv::Scalar color;
         if (histograms.size() == 1) {
-            color = cv::Scalar(255, 255, 255); // Branco para escala de cinza
+            color = cv::Scalar(255, 255, 255);
         } else {
-            // Para BGR: canal 0=Azul, 1=Verde, 2=Vermelho
             if (c == 0) color = cv::Scalar(255, 0, 0);      // Azul
             else if (c == 1) color = cv::Scalar(0, 255, 0); // Verde  
             else color = cv::Scalar(0, 0, 255);             // Vermelho
         }
 
-        // Desenha linhas do histograma
+        // Desenha linhas do histograma com tratamento de overflow
         for (int i = 1; i < 256; i++) {
-            int y1 = hist_h - cvRound((double)histograms[c].at<int>(i-1) * hist_h / maxVal);
-            int y2 = hist_h - cvRound((double)histograms[c].at<int>(i) * hist_h / maxVal);
+            // TRATAMENTO DE OVERFLOW na normalização de altura
+            int y1 = hist_h - roundToInt((double)histograms[c].at<int>(i-1) * hist_h / maxVal);
+            int y2 = hist_h - roundToInt((double)histograms[c].at<int>(i) * hist_h / maxVal);
+            
+            // Garante que y1 e y2 estejam dentro dos limites
+            y1 = std::max(0, std::min(hist_h, y1));
+            y2 = std::max(0, std::min(hist_h, y2));
             
             cv::line(histImage,
                 cv::Point(bin_w * (i-1), y1),

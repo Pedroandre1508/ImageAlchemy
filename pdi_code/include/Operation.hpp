@@ -13,6 +13,9 @@ public:
     static cv::Mat toGrayscaleAverage(const cv::Mat& input);
     static cv::Mat toGrayscaleWeighted(const cv::Mat& input);
     
+    // Conversão para tons de cinza real (1 canal)
+    static cv::Mat toGrayscaleRealChannel(const cv::Mat& input);
+    
     // Operações aritméticas
     static cv::Mat addImages(const cv::Mat& img1, const cv::Mat& img2);
     static cv::Mat subtractImages(const cv::Mat& img1, const cv::Mat& img2);

@@ -123,10 +123,8 @@ int main() {
     // =============================================================================
     std::cout << "\n3. Operações aritméticas entre imagens..." << std::endl;
     
-    // Converte Colorida1 para tons de cinza real (1 canal) para demonstrar operações mistas
-    cv::Mat cinzaColorida1 = Operation::toGrayscaleWeighted(imagemColorida1);
-    cv::Mat cinzaReal;
-    cv::cvtColor(cinzaColorida1, cinzaReal, cv::COLOR_BGR2GRAY);
+    // Converte Colorida1 para tons de cinza real (1 canal) usando implementação manual
+    cv::Mat cinzaReal = Operation::toGrayscaleRealChannel(imagemColorida1);
     
     std::cout << "\n   3.1 Operações Colorida com Colorida (Colorida1 + Colorida2)..." << std::endl;
     // Operações entre duas imagens coloridas diferentes
@@ -160,20 +158,20 @@ int main() {
     cv::Mat divisaoColoridaCinza = Operation::divideImages(imagemColorida1, cinzaReal);
     
     // Exibe operações colorida com cinza
-    mostrarImagem("Cinza (1 canal)", cinzaReal, 2000);
+    mostrarImagem("Cinza Real (1 canal)", cinzaReal, 2000);
     mostrarImagem("Colorida + Cinza", somaColoridaCinza, 2000);
     mostrarImagem("Colorida - Cinza", subtracaoColoridaCinza, 2000);
     mostrarImagem("Colorida * Cinza", multiplicacaoColoridaCinza, 2000);
     mostrarImagem("Colorida / Cinza", divisaoColoridaCinza, 2000);
     
     // Salva operações colorida com cinza
-    cv::imwrite("../result/cinza_1canal.jpg", cinzaReal);
+    cv::imwrite("../result/cinza_real_1canal.jpg", cinzaReal);
     cv::imwrite("../result/soma_colorida_cinza.jpg", somaColoridaCinza);
     cv::imwrite("../result/subtracao_colorida_cinza.jpg", subtracaoColoridaCinza);
     cv::imwrite("../result/multiplicacao_colorida_cinza.jpg", multiplicacaoColoridaCinza);
     cv::imwrite("../result/divisao_colorida_cinza.jpg", divisaoColoridaCinza);
     
-    std::cout << "   - Imagem cinza (1 canal) salva como result/cinza_1canal.jpg" << std::endl;
+    std::cout << "   - Imagem cinza real (1 canal) salva como result/cinza_real_1canal.jpg" << std::endl;
     std::cout << "   - Soma Colorida+Cinza salva como result/soma_colorida_cinza.jpg" << std::endl;
     std::cout << "   - Subtração Colorida-Cinza salva como result/subtracao_colorida_cinza.jpg" << std::endl;
     std::cout << "   - Multiplicação Colorida*Cinza salva como result/multiplicacao_colorida_cinza.jpg" << std::endl;
