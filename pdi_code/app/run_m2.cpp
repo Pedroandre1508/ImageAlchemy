@@ -110,9 +110,14 @@ int main()
     
     // Processa cada operação morfológica com todas as imagens binárias
     
-    // EROSÃO
-    for (size_t i = 0; i < imagensBinarias.size(); i++) {
-        std::string nomeArquivo = imagensBinarias[i];
+    // EROSÃO - 02_erosao + Binario1, Binario2, Binario3
+    std::cout << "   → Aplicando Erosão..." << std::endl;
+    
+    // Adiciona 02_erosao.png na lista de erosão
+    std::vector<std::string> imagensErosao = {"02_erosao.png", "Binario1.jpg", "Binario2.jpeg", "Binario3.jpg"};
+    
+    for (size_t i = 0; i < imagensErosao.size(); i++) {
+        std::string nomeArquivo = imagensErosao[i];
         cv::Mat imagem = cv::imread("../data/model/" + nomeArquivo, cv::IMREAD_GRAYSCALE);
         
         if (imagem.empty()) {
@@ -122,7 +127,9 @@ int main()
         
         cv::Mat resultado = MorfologiaMatematica::erosao(imagem, elementoEstruturante);
         std::string prefixo = "../data/result/Morfologia Matemática/02_erosao_";
-        if (nomeArquivo.find("Binario1") != std::string::npos) prefixo += "Binario1";
+        
+        if (nomeArquivo.find("02_erosao") != std::string::npos) prefixo += "02";
+        else if (nomeArquivo.find("Binario1") != std::string::npos) prefixo += "Binario1";
         else if (nomeArquivo.find("Binario2") != std::string::npos) prefixo += "Binario2";
         else if (nomeArquivo.find("Binario3") != std::string::npos) prefixo += "Binario3";
         
@@ -133,20 +140,31 @@ int main()
         mostrarImagem("Erosão - Original: " + nomeArquivo, imagem);
         mostrarImagem("Erosão - Resultado: " + nomeArquivo, resultado);
         
+        std::cout << "     ✓ " << nomeArquivo << " processada" << std::endl;
     }
+    std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
     cv::waitKey(0);
     cv::destroyAllWindows();
     
-    // DILATAÇÃO
-    for (size_t i = 0; i < imagensBinarias.size(); i++) {
-        std::string nomeArquivo = imagensBinarias[i];
+    // DILATAÇÃO - 03_dilatacao + Binario1, Binario2, Binario3
+    std::cout << "   → Aplicando Dilatação..." << std::endl;
+    
+    std::vector<std::string> imagensDilatacao = {"03_dilatacao.png", "Binario1.jpg", "Binario2.jpeg", "Binario3.jpg"};
+    
+    for (size_t i = 0; i < imagensDilatacao.size(); i++) {
+        std::string nomeArquivo = imagensDilatacao[i];
         cv::Mat imagem = cv::imread("../data/model/" + nomeArquivo, cv::IMREAD_GRAYSCALE);
         
-        if (imagem.empty()) continue;
+        if (imagem.empty()) {
+            std::cerr << "     ✗ Erro ao carregar: " + nomeArquivo << std::endl;
+            continue;
+        }
         
         cv::Mat resultado = MorfologiaMatematica::dilatacao(imagem, elementoEstruturante);
         std::string prefixo = "../data/result/Morfologia Matemática/03_dilatacao_";
-        if (nomeArquivo.find("Binario1") != std::string::npos) prefixo += "Binario1";
+        
+        if (nomeArquivo.find("03_dilatacao") != std::string::npos) prefixo += "03";
+        else if (nomeArquivo.find("Binario1") != std::string::npos) prefixo += "Binario1";
         else if (nomeArquivo.find("Binario2") != std::string::npos) prefixo += "Binario2";
         else if (nomeArquivo.find("Binario3") != std::string::npos) prefixo += "Binario3";
         
@@ -156,20 +174,32 @@ int main()
         // Exibe as imagens
         mostrarImagem("Dilatação - Original: " + nomeArquivo, imagem);
         mostrarImagem("Dilatação - Resultado: " + nomeArquivo, resultado);
+        
+        std::cout << "     ✓ " << nomeArquivo << " processada" << std::endl;
         }
+    std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
     cv::waitKey(0);
     cv::destroyAllWindows();
     
-    // ABERTURA
-    for (size_t i = 0; i < imagensBinarias.size(); i++) {
-        std::string nomeArquivo = imagensBinarias[i];
+    // ABERTURA - 04_abertura + Binario1, Binario2, Binario3
+    std::cout << "   → Aplicando Abertura..." << std::endl;
+    
+    std::vector<std::string> imagensAbertura = {"04_abertura.png", "Binario1.jpg", "Binario2.jpeg", "Binario3.jpg"};
+    
+    for (size_t i = 0; i < imagensAbertura.size(); i++) {
+        std::string nomeArquivo = imagensAbertura[i];
         cv::Mat imagem = cv::imread("../data/model/" + nomeArquivo, cv::IMREAD_GRAYSCALE);
         
-        if (imagem.empty()) continue;
+        if (imagem.empty()) {
+            std::cerr << "     ✗ Erro ao carregar: " + nomeArquivo << std::endl;
+            continue;
+        }
         
         cv::Mat resultado = MorfologiaMatematica::abertura(imagem, elementoEstruturante);
         std::string prefixo = "../data/result/Morfologia Matemática/04_abertura_";
-        if (nomeArquivo.find("Binario1") != std::string::npos) prefixo += "Binario1";
+        
+        if (nomeArquivo.find("04_abertura") != std::string::npos) prefixo += "04";
+        else if (nomeArquivo.find("Binario1") != std::string::npos) prefixo += "Binario1";
         else if (nomeArquivo.find("Binario2") != std::string::npos) prefixo += "Binario2";
         else if (nomeArquivo.find("Binario3") != std::string::npos) prefixo += "Binario3";
         
@@ -180,21 +210,33 @@ int main()
         mostrarImagem("Abertura - Original: " + nomeArquivo, imagem);
         mostrarImagem("Abertura - Resultado: " + nomeArquivo, resultado);
         
+        std::cout << "     ✓ " << nomeArquivo << " processada" << std::endl;
     }
     
+    std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
     cv::waitKey(0);
     cv::destroyAllWindows();
     
-    // FECHAMENTO
-    for (size_t i = 0; i < imagensBinarias.size(); i++) {
-        std::string nomeArquivo = imagensBinarias[i];
+    
+    // FECHAMENTO - 05_fechamento + Binario1, Binario2, Binario3
+    std::cout << "   → Aplicando Fechamento..." << std::endl;
+    
+    std::vector<std::string> imagensFechamento = {"05_fechamento.png", "Binario1.jpg", "Binario2.jpeg", "Binario3.jpg"};
+    
+    for (size_t i = 0; i < imagensFechamento.size(); i++) {
+        std::string nomeArquivo = imagensFechamento[i];
         cv::Mat imagem = cv::imread("../data/model/" + nomeArquivo, cv::IMREAD_GRAYSCALE);
         
-        if (imagem.empty()) continue;
+        if (imagem.empty()) {
+            std::cerr << "     ✗ Erro ao carregar: " + nomeArquivo << std::endl;
+            continue;
+        }
         
         cv::Mat resultado = MorfologiaMatematica::fechamento(imagem, elementoEstruturante);
         std::string prefixo = "../data/result/Morfologia Matemática/05_fechamento_";
-        if (nomeArquivo.find("Binario1") != std::string::npos) prefixo += "Binario1";
+        
+        if (nomeArquivo.find("05_fechamento") != std::string::npos) prefixo += "05";
+        else if (nomeArquivo.find("Binario1") != std::string::npos) prefixo += "Binario1";
         else if (nomeArquivo.find("Binario2") != std::string::npos) prefixo += "Binario2";
         else if (nomeArquivo.find("Binario3") != std::string::npos) prefixo += "Binario3";
         
@@ -204,23 +246,35 @@ int main()
         // Exibe as imagens
         mostrarImagem("Fechamento - Original: " + nomeArquivo, imagem);
         mostrarImagem("Fechamento - Resultado: " + nomeArquivo, resultado);
-        }
+        
+        std::cout << "     ✓ " << nomeArquivo << " processada" << std::endl;
+    }
     
+    std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
     cv::waitKey(0);
     cv::destroyAllWindows();
     
-    // LIMITES
-    for (size_t i = 0; i < imagensBinarias.size(); i++) {
-        std::string nomeArquivo = imagensBinarias[i];
+    // LIMITES - 06_limites + Binario1, Binario2, Binario3
+    std::cout << "   → Aplicando Limites (Interno e Externo)..." << std::endl;
+    
+    std::vector<std::string> imagensLimites = {"06_limites.png", "Binario1.jpg", "Binario2.jpeg", "Binario3.jpg"};
+    
+    for (size_t i = 0; i < imagensLimites.size(); i++) {
+        std::string nomeArquivo = imagensLimites[i];
         cv::Mat imagem = cv::imread("../data/model/" + nomeArquivo, cv::IMREAD_GRAYSCALE);
         
-        if (imagem.empty()) continue;
+        if (imagem.empty()) {
+            std::cerr << "     ✗ Erro ao carregar: " + nomeArquivo << std::endl;
+            continue;
+        }
         
         cv::Mat limiteInterno = MorfologiaMatematica::limiteInterno(imagem, elementoEstruturante);
         cv::Mat limiteExterno = MorfologiaMatematica::limiteExterno(imagem, elementoEstruturante);
         
         std::string prefixo = "../data/result/Morfologia Matemática/06_limites_";
-        if (nomeArquivo.find("Binario1") != std::string::npos) prefixo += "Binario1";
+        
+        if (nomeArquivo.find("06_limites") != std::string::npos) prefixo += "06";
+        else if (nomeArquivo.find("Binario1") != std::string::npos) prefixo += "Binario1";
         else if (nomeArquivo.find("Binario2") != std::string::npos) prefixo += "Binario2";
         else if (nomeArquivo.find("Binario3") != std::string::npos) prefixo += "Binario3";
         
@@ -233,6 +287,7 @@ int main()
         mostrarImagem("Limites - Interno: " + nomeArquivo, limiteInterno);
         mostrarImagem("Limites - Externo: " + nomeArquivo, limiteExterno);
         
+        std::cout << "     ✓ " << nomeArquivo << " processada" << std::endl;
     }
     
     cv::waitKey(0);
@@ -314,13 +369,13 @@ int main()
     std::cout << "     • 01_convolucao.png, Cinza1.jpeg, Cinza2.jpeg, Cinza3.jpeg" << std::endl;
     std::cout << "     • Kernels: Passa-Baixa, Passa-Alta, Nitidez" << std::endl;
     std::cout << "     • Total: 16 imagens de resultado (4 originais + 12 processadas)" << std::endl;
-    std::cout << "\n  2. Morfologia Matemática - 5 operações" << std::endl;
-    std::cout << "     • Erosão: 02_erosao + Binario1, Binario2, Binario3" << std::endl;
-    std::cout << "     • Dilatação: 03_dilatacao + Binario1, Binario2, Binario3" << std::endl;
-    std::cout << "     • Abertura: 04_abertura + Binario1, Binario2, Binario3" << std::endl;
-    std::cout << "     • Fechamento: 05_fechamento + Binario1, Binario2, Binario3" << std::endl;
-    std::cout << "     • Limites: 06_limites + Binario1, Binario2, Binario3" << std::endl;
-    std::cout << "     • Total: 33 imagens de resultado" << std::endl;
+    std::cout << "\n  2. Morfologia Matemática - 5 operações × 4 imagens cada" << std::endl;
+    std::cout << "     • Erosão: 02_erosao.png + Binario1, Binario2, Binario3 (8 imagens)" << std::endl;
+    std::cout << "     • Dilatação: 03_dilatacao.png + Binario1, Binario2, Binario3 (8 imagens)" << std::endl;
+    std::cout << "     • Abertura: 04_abertura.png + Binario1, Binario2, Binario3 (8 imagens)" << std::endl;
+    std::cout << "     • Fechamento: 05_fechamento.png + Binario1, Binario2, Binario3 (8 imagens)" << std::endl;
+    std::cout << "     • Limites: 06_limites.png + Binario1, Binario2, Binario3 (12 imagens)" << std::endl;
+    std::cout << "     • Total: 44 imagens de resultado" << std::endl;
     std::cout << "\n  3. Detecção de Bordas - 4 imagens" << std::endl;
     std::cout << "     • 07_bordas.png, Cinza4.jpeg, Cinza7.jpeg, Cinza8.jpeg" << std::endl;
     std::cout << "     • Operadores: Roberts, Sobel, Robinson (+ limiarizados)" << std::endl;
@@ -329,7 +384,7 @@ int main()
     std::cout << "   • Convolução Simples/" << std::endl;
     std::cout << "   • Morfologia Matemática/" << std::endl;
     std::cout << "   • Identificação de Bordas/" << std::endl;
-    std::cout << "📊 Total de imagens processadas: ~77 imagens" << std::endl;
+    std::cout << "📊 Total de imagens processadas: ~88 imagens (16 + 44 + 28)" << std::endl;
     std::cout << "\n✅ Processamento concluído!" << std::endl;
     
     return 0;
