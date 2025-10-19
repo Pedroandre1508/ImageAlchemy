@@ -9,11 +9,16 @@ include_directories(include)
 
 file(GLOB SOURCES "src/*.cpp")
 
+# Executável principal (M1 + M2.1)
 add_executable(pdi_code app/run.cpp ${SOURCES})
-
 target_link_libraries(pdi_code ${OpenCV_LIBS})
+
+# Executável específico para M2.1
+add_executable(pdi_m2 app/run_m2.cpp ${SOURCES})
+target_link_libraries(pdi_m2 ${OpenCV_LIBS})
 
 # Adicionar suporte para filesystem se necessário
 if(CMAKE_CXX_STANDARD LESS 17)
     target_link_libraries(pdi_code stdc++fs)
+    target_link_libraries(pdi_m2 stdc++fs)
 endif()

@@ -1,7 +1,7 @@
 CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o: \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/src/ProcessadorImagens.cpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/src/ProcessadorImagens.cpp \
  /usr/include/stdc-predef.h \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/include/ProcessadorImagens.hpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/include/ProcessadorImagens.hpp \
  /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/include/opencv4/opencv2/core.hpp \

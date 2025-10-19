@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/include" -isystem /usr/include/opencv4
+CXX_INCLUDES = -I"/home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/include" -isystem /usr/include/opencv4
 
 CXX_FLAGS = 
 

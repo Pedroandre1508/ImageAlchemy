@@ -1,4 +1,4 @@
-# Install script for directory: /home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code
+# Install script for directory: /home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

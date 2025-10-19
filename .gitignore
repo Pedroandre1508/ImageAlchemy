@@ -1,0 +1,209 @@
+# ============================================
+# GITIGNORE - Projeto C++ com CMake e OpenCV
+# Para compatibilidade Linux e Windows
+# ============================================
+
+# ============================
+# ARQUIVOS DE BUILD (CRÍTICO!)
+# ============================
+# Toda a pasta build/ deve ser ignorada
+# Ela contém arquivos específicos do sistema operacional
+build/
+build-*/
+cmake-build-*/
+out/
+
+# Arquivos CMake gerados
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# ============================
+# EXECUTÁVEIS COMPILADOS
+# ============================
+# Executáveis no Linux
+pdi_code
+pdi_m2
+*.out
+*.app
+
+# Executáveis no Windows
+*.exe
+pdi_code.exe
+pdi_m2.exe
+
+# ============================
+# ARQUIVOS OBJETO
+# ============================
+# Objetos compilados (Linux e Windows)
+*.o
+*.obj
+*.lo
+*.slo
+*.ko
+*.elf
+
+# ============================
+# BIBLIOTECAS COMPILADAS
+# ============================
+*.so
+*.so.*
+*.dylib
+*.dll
+*.lib
+*.a
+*.la
+*.lai
+
+# ============================
+# ARQUIVOS TEMPORÁRIOS
+# ============================
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# ============================
+# ARQUIVOS DO VISUAL STUDIO (WINDOWS)
+# ============================
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+x64/
+x86/
+Debug/
+Release/
+*.opendb
+*.db
+*.ipch
+*.VC.db
+*.VC.VC.opendb
+
+# ============================
+# ARQUIVOS DO VS CODE
+# ============================
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# ============================
+# ARQUIVOS DO SISTEMA
+# ============================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ============================
+# LOGS E TEMPORÁRIOS
+# ============================
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.cache
+
+# ============================
+# DEPENDÊNCIAS
+# ============================
+# Não ignorar as pastas de código fonte!
+# include/
+# src/
+# app/
+
+# ============================
+# DADOS E RESULTADOS (OPCIONAL)
+# ============================
+# Descomentar se quiser ignorar resultados gerados
+# pdi_code/data/result/*.png
+# pdi_code/data/result/*.jpg
+# pdi_code/data/result/*.jpeg
+
+# Mas MANTER as imagens de entrada (model/)
+!pdi_code/data/model/*.png
+!pdi_code/data/model/*.jpg
+!pdi_code/data/model/*.jpeg
+
+# ============================
+# DOCUMENTAÇÃO GERADA
+# ============================
+html/
+latex/
+*.pdf.aux
+*.pdf.log
+
+# ============================
+# IDE e EDITORES
+# ============================
+# CLion
+.idea/
+cmake-build-*/
+
+# Eclipse
+.cproject
+.project
+.settings/
+
+# NetBeans
+nbproject/
+nbbuild/
+dist/
+nbdist/
+
+# Qt Creator
+*.pro.user
+*.pro.user.*
+
+# Code::Blocks
+*.cbp
+*.depend
+*.layout
+
+# ============================
+# IMPORTANTES: NÃO IGNORAR!
+# ============================
+# Estes arquivos DEVEM ser versionados:
+!CMakeLists.txt
+!*.hpp
+!*.cpp
+!*.h
+!*.c
+!README.md
+!*.md
+!pdi_code/data/model/*

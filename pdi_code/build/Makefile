@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code"
+CMAKE_SOURCE_DIR = "/home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build"
+CMAKE_BINARY_DIR = "/home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles" "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/build/CMakeFiles" "/home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/build//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/outplan/Documentos/pessoal/Universidade/Processamento de imagem/TrabalhoM1/pdi_code/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -129,6 +129,19 @@ pdi_code/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/build
 .PHONY : pdi_code/fast
 
+#=============================================================================
+# Target rules for targets named pdi_m2
+
+# Build rule for target.
+pdi_m2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pdi_m2
+.PHONY : pdi_m2
+
+# fast build rule for target.
+pdi_m2/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/build
+.PHONY : pdi_m2/fast
+
 app/run.o: app/run.cpp.o
 .PHONY : app/run.o
 
@@ -153,12 +166,37 @@ app/run.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/app/run.cpp.s
 .PHONY : app/run.cpp.s
 
+app/run_m2.o: app/run_m2.cpp.o
+.PHONY : app/run_m2.o
+
+# target to build an object file
+app/run_m2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/app/run_m2.cpp.o
+.PHONY : app/run_m2.cpp.o
+
+app/run_m2.i: app/run_m2.cpp.i
+.PHONY : app/run_m2.i
+
+# target to preprocess a source file
+app/run_m2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/app/run_m2.cpp.i
+.PHONY : app/run_m2.cpp.i
+
+app/run_m2.s: app/run_m2.cpp.s
+.PHONY : app/run_m2.s
+
+# target to generate assembly for a file
+app/run_m2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/app/run_m2.cpp.s
+.PHONY : app/run_m2.cpp.s
+
 src/ConversorTonsCinza.o: src/ConversorTonsCinza.cpp.o
 .PHONY : src/ConversorTonsCinza.o
 
 # target to build an object file
 src/ConversorTonsCinza.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/ConversorTonsCinza.cpp.o
 .PHONY : src/ConversorTonsCinza.cpp.o
 
 src/ConversorTonsCinza.i: src/ConversorTonsCinza.cpp.i
@@ -167,6 +205,7 @@ src/ConversorTonsCinza.i: src/ConversorTonsCinza.cpp.i
 # target to preprocess a source file
 src/ConversorTonsCinza.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/ConversorTonsCinza.cpp.i
 .PHONY : src/ConversorTonsCinza.cpp.i
 
 src/ConversorTonsCinza.s: src/ConversorTonsCinza.cpp.s
@@ -175,7 +214,62 @@ src/ConversorTonsCinza.s: src/ConversorTonsCinza.cpp.s
 # target to generate assembly for a file
 src/ConversorTonsCinza.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ConversorTonsCinza.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/ConversorTonsCinza.cpp.s
 .PHONY : src/ConversorTonsCinza.cpp.s
+
+src/DetectorBordas.o: src/DetectorBordas.cpp.o
+.PHONY : src/DetectorBordas.o
+
+# target to build an object file
+src/DetectorBordas.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/DetectorBordas.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/DetectorBordas.cpp.o
+.PHONY : src/DetectorBordas.cpp.o
+
+src/DetectorBordas.i: src/DetectorBordas.cpp.i
+.PHONY : src/DetectorBordas.i
+
+# target to preprocess a source file
+src/DetectorBordas.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/DetectorBordas.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/DetectorBordas.cpp.i
+.PHONY : src/DetectorBordas.cpp.i
+
+src/DetectorBordas.s: src/DetectorBordas.cpp.s
+.PHONY : src/DetectorBordas.s
+
+# target to generate assembly for a file
+src/DetectorBordas.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/DetectorBordas.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/DetectorBordas.cpp.s
+.PHONY : src/DetectorBordas.cpp.s
+
+src/MorfologiaMatematica.o: src/MorfologiaMatematica.cpp.o
+.PHONY : src/MorfologiaMatematica.o
+
+# target to build an object file
+src/MorfologiaMatematica.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/MorfologiaMatematica.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/MorfologiaMatematica.cpp.o
+.PHONY : src/MorfologiaMatematica.cpp.o
+
+src/MorfologiaMatematica.i: src/MorfologiaMatematica.cpp.i
+.PHONY : src/MorfologiaMatematica.i
+
+# target to preprocess a source file
+src/MorfologiaMatematica.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/MorfologiaMatematica.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/MorfologiaMatematica.cpp.i
+.PHONY : src/MorfologiaMatematica.cpp.i
+
+src/MorfologiaMatematica.s: src/MorfologiaMatematica.cpp.s
+.PHONY : src/MorfologiaMatematica.s
+
+# target to generate assembly for a file
+src/MorfologiaMatematica.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/MorfologiaMatematica.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/MorfologiaMatematica.cpp.s
+.PHONY : src/MorfologiaMatematica.cpp.s
 
 src/OperacoesAritmeticas.o: src/OperacoesAritmeticas.cpp.o
 .PHONY : src/OperacoesAritmeticas.o
@@ -183,6 +277,7 @@ src/OperacoesAritmeticas.o: src/OperacoesAritmeticas.cpp.o
 # target to build an object file
 src/OperacoesAritmeticas.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/OperacoesAritmeticas.cpp.o
 .PHONY : src/OperacoesAritmeticas.cpp.o
 
 src/OperacoesAritmeticas.i: src/OperacoesAritmeticas.cpp.i
@@ -191,6 +286,7 @@ src/OperacoesAritmeticas.i: src/OperacoesAritmeticas.cpp.i
 # target to preprocess a source file
 src/OperacoesAritmeticas.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/OperacoesAritmeticas.cpp.i
 .PHONY : src/OperacoesAritmeticas.cpp.i
 
 src/OperacoesAritmeticas.s: src/OperacoesAritmeticas.cpp.s
@@ -199,7 +295,35 @@ src/OperacoesAritmeticas.s: src/OperacoesAritmeticas.cpp.s
 # target to generate assembly for a file
 src/OperacoesAritmeticas.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/OperacoesAritmeticas.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/OperacoesAritmeticas.cpp.s
 .PHONY : src/OperacoesAritmeticas.cpp.s
+
+src/OperacoesConvolucao.o: src/OperacoesConvolucao.cpp.o
+.PHONY : src/OperacoesConvolucao.o
+
+# target to build an object file
+src/OperacoesConvolucao.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/OperacoesConvolucao.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/OperacoesConvolucao.cpp.o
+.PHONY : src/OperacoesConvolucao.cpp.o
+
+src/OperacoesConvolucao.i: src/OperacoesConvolucao.cpp.i
+.PHONY : src/OperacoesConvolucao.i
+
+# target to preprocess a source file
+src/OperacoesConvolucao.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/OperacoesConvolucao.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/OperacoesConvolucao.cpp.i
+.PHONY : src/OperacoesConvolucao.cpp.i
+
+src/OperacoesConvolucao.s: src/OperacoesConvolucao.cpp.s
+.PHONY : src/OperacoesConvolucao.s
+
+# target to generate assembly for a file
+src/OperacoesConvolucao.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/OperacoesConvolucao.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/OperacoesConvolucao.cpp.s
+.PHONY : src/OperacoesConvolucao.cpp.s
 
 src/ProcessadorHistogramas.o: src/ProcessadorHistogramas.cpp.o
 .PHONY : src/ProcessadorHistogramas.o
@@ -207,6 +331,7 @@ src/ProcessadorHistogramas.o: src/ProcessadorHistogramas.cpp.o
 # target to build an object file
 src/ProcessadorHistogramas.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/ProcessadorHistogramas.cpp.o
 .PHONY : src/ProcessadorHistogramas.cpp.o
 
 src/ProcessadorHistogramas.i: src/ProcessadorHistogramas.cpp.i
@@ -215,6 +340,7 @@ src/ProcessadorHistogramas.i: src/ProcessadorHistogramas.cpp.i
 # target to preprocess a source file
 src/ProcessadorHistogramas.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/ProcessadorHistogramas.cpp.i
 .PHONY : src/ProcessadorHistogramas.cpp.i
 
 src/ProcessadorHistogramas.s: src/ProcessadorHistogramas.cpp.s
@@ -223,6 +349,7 @@ src/ProcessadorHistogramas.s: src/ProcessadorHistogramas.cpp.s
 # target to generate assembly for a file
 src/ProcessadorHistogramas.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/ProcessadorHistogramas.cpp.s
 .PHONY : src/ProcessadorHistogramas.cpp.s
 
 src/ProcessadorImagens.o: src/ProcessadorImagens.cpp.o
@@ -231,6 +358,7 @@ src/ProcessadorImagens.o: src/ProcessadorImagens.cpp.o
 # target to build an object file
 src/ProcessadorImagens.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/ProcessadorImagens.cpp.o
 .PHONY : src/ProcessadorImagens.cpp.o
 
 src/ProcessadorImagens.i: src/ProcessadorImagens.cpp.i
@@ -239,6 +367,7 @@ src/ProcessadorImagens.i: src/ProcessadorImagens.cpp.i
 # target to preprocess a source file
 src/ProcessadorImagens.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/ProcessadorImagens.cpp.i
 .PHONY : src/ProcessadorImagens.cpp.i
 
 src/ProcessadorImagens.s: src/ProcessadorImagens.cpp.s
@@ -247,6 +376,7 @@ src/ProcessadorImagens.s: src/ProcessadorImagens.cpp.s
 # target to generate assembly for a file
 src/ProcessadorImagens.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_code.dir/build.make CMakeFiles/pdi_code.dir/src/ProcessadorImagens.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pdi_m2.dir/build.make CMakeFiles/pdi_m2.dir/src/ProcessadorImagens.cpp.s
 .PHONY : src/ProcessadorImagens.cpp.s
 
 # Help Target
@@ -258,15 +388,28 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... pdi_code"
+	@echo "... pdi_m2"
 	@echo "... app/run.o"
 	@echo "... app/run.i"
 	@echo "... app/run.s"
+	@echo "... app/run_m2.o"
+	@echo "... app/run_m2.i"
+	@echo "... app/run_m2.s"
 	@echo "... src/ConversorTonsCinza.o"
 	@echo "... src/ConversorTonsCinza.i"
 	@echo "... src/ConversorTonsCinza.s"
+	@echo "... src/DetectorBordas.o"
+	@echo "... src/DetectorBordas.i"
+	@echo "... src/DetectorBordas.s"
+	@echo "... src/MorfologiaMatematica.o"
+	@echo "... src/MorfologiaMatematica.i"
+	@echo "... src/MorfologiaMatematica.s"
 	@echo "... src/OperacoesAritmeticas.o"
 	@echo "... src/OperacoesAritmeticas.i"
 	@echo "... src/OperacoesAritmeticas.s"
+	@echo "... src/OperacoesConvolucao.o"
+	@echo "... src/OperacoesConvolucao.i"
+	@echo "... src/OperacoesConvolucao.s"
 	@echo "... src/ProcessadorHistogramas.o"
 	@echo "... src/ProcessadorHistogramas.i"
 	@echo "... src/ProcessadorHistogramas.s"

@@ -4,6 +4,9 @@
 #include "ProcessadorHistogramas.hpp"
 #include "OperacoesAritmeticas.hpp"
 #include "ConversorTonsCinza.hpp"
+#include "OperacoesConvolucao.hpp"
+#include "MorfologiaMatematica.hpp"
+#include "DetectorBordas.hpp"
 #include <filesystem>
 
 /**
@@ -243,9 +246,150 @@ int main()
     // Salva
     cv::imwrite("../data/result/imagem_invertida_inverso.jpg", imagemInvertida);
 
+    // ======================================
+    // M2.1 - OPERAÇÕES NO DOMÍNIO DO ESPAÇO
+    // ======================================
+    
+    std::cout << "\n=== INICIANDO PROCESSAMENTO M2.1 ===" << std::endl;
+    
+    // 1. CONVOLUÇÃO SIMPLES (Imagens em tons de cinza)
+    std::cout << "\n1. Aplicando Convolução..." << std::endl;
+    
+    // Carrega imagem de teste (usa as imagens do modelo)
+    cv::Mat imagemConv = cv::imread("../data/model/01_convolucao.png");
+    if (imagemConv.empty()) {
+        std::cerr << "Aviso: ../data/model/01_convolucao.png não encontrada. Usando imagem alternativa." << std::endl;
+        imagemConv = cinzaReal;
+    }
+    
+    // Converte para cinza
+    cv::Mat imagemConvCinza = ConversorTonsCinza::paraMediaPonderada(imagemConv);
+    
+    // Testa diferentes kernels
+    cv::Mat kernelPassaBaixa = OperacoesConvolucao::criarKernelPassaBaixa(3);
+    cv::Mat kernelPassaAlta = OperacoesConvolucao::criarKernelPassaAlta(3);
+    cv::Mat kernelNitidez = OperacoesConvolucao::criarKernelNitidez(3);
+    
+    cv::Mat convPassaBaixa = OperacoesConvolucao::aplicarConvolucao(imagemConvCinza, kernelPassaBaixa);
+    cv::Mat convPassaAlta = OperacoesConvolucao::aplicarConvolucao(imagemConvCinza, kernelPassaAlta);
+    cv::Mat convNitidez = OperacoesConvolucao::aplicarConvolucao(imagemConvCinza, kernelNitidez);
+    
+    mostrarImagem("Convolução - Original", imagemConvCinza);
+    mostrarImagem("Convolução - Passa-Baixa (Blur)", convPassaBaixa);
+    mostrarImagem("Convolução - Passa-Alta", convPassaAlta);
+    mostrarImagem("Convolução - Nitidez", convNitidez);
+    
+    cv::imwrite("../data/result/01_convolucao_original.png", imagemConvCinza);
+    cv::imwrite("../data/result/01_convolucao_passa_baixa.png", convPassaBaixa);
+    cv::imwrite("../data/result/01_convolucao_passa_alta.png", convPassaAlta);
+    cv::imwrite("../data/result/01_convolucao_nitidez.png", convNitidez);
+    
+    // 2. MORFOLOGIA MATEMÁTICA (Imagens binárias)
+    std::cout << "2. Aplicando Morfologia Matemática..." << std::endl;
+    
+    // Carrega imagens de teste
+    cv::Mat imagemErosao = cv::imread("../data/model/02_erosao.png", cv::IMREAD_GRAYSCALE);
+    cv::Mat imagemDilatacao = cv::imread("../data/model/03_dilatacao.png", cv::IMREAD_GRAYSCALE);
+    cv::Mat imagemAbertura = cv::imread("../data/model/04_abertura.png", cv::IMREAD_GRAYSCALE);
+    cv::Mat imagemFechamento = cv::imread("../data/model/05_fechamento.png", cv::IMREAD_GRAYSCALE);
+    cv::Mat imagemLimites = cv::imread("../data/model/06_limites.png", cv::IMREAD_GRAYSCALE);
+    
+    // Se não encontrar as imagens, usa a imagem limiarizada como base
+    if (imagemErosao.empty()) imagemErosao = limiarizada128;
+    if (imagemDilatacao.empty()) imagemDilatacao = limiarizada128;
+    if (imagemAbertura.empty()) imagemAbertura = limiarizada128;
+    if (imagemFechamento.empty()) imagemFechamento = limiarizada128;
+    if (imagemLimites.empty()) imagemLimites = limiarizada128;
+    
+    // Cria elemento estruturante
+    cv::Mat elementoEstruturante = MorfologiaMatematica::criarElementoEstruturante(3);
+    cv::Mat elementoEstruturanteCruz = MorfologiaMatematica::criarElementoEstruturanteCruz(5);
+    
+    // Erosão
+    cv::Mat resultErosao = MorfologiaMatematica::erosao(imagemErosao, elementoEstruturante);
+    mostrarImagem("Morfologia - Erosão Original", imagemErosao);
+    mostrarImagem("Morfologia - Erosão Resultado", resultErosao);
+    cv::imwrite("../data/result/02_erosao_original.png", imagemErosao);
+    cv::imwrite("../data/result/02_erosao_resultado.png", resultErosao);
+    
+    // Dilatação
+    cv::Mat resultDilatacao = MorfologiaMatematica::dilatacao(imagemDilatacao, elementoEstruturante);
+    mostrarImagem("Morfologia - Dilatação Original", imagemDilatacao);
+    mostrarImagem("Morfologia - Dilatação Resultado", resultDilatacao);
+    cv::imwrite("../data/result/03_dilatacao_original.png", imagemDilatacao);
+    cv::imwrite("../data/result/03_dilatacao_resultado.png", resultDilatacao);
+    
+    // Abertura
+    cv::Mat resultAbertura = MorfologiaMatematica::abertura(imagemAbertura, elementoEstruturante);
+    mostrarImagem("Morfologia - Abertura Original", imagemAbertura);
+    mostrarImagem("Morfologia - Abertura Resultado", resultAbertura);
+    cv::imwrite("../data/result/04_abertura_original.png", imagemAbertura);
+    cv::imwrite("../data/result/04_abertura_resultado.png", resultAbertura);
+    
+    // Fechamento
+    cv::Mat resultFechamento = MorfologiaMatematica::fechamento(imagemFechamento, elementoEstruturante);
+    mostrarImagem("Morfologia - Fechamento Original", imagemFechamento);
+    mostrarImagem("Morfologia - Fechamento Resultado", resultFechamento);
+    cv::imwrite("../data/result/05_fechamento_original.png", imagemFechamento);
+    cv::imwrite("../data/result/05_fechamento_resultado.png", resultFechamento);
+    
+    // Limites (Interno e Externo)
+    cv::Mat resultLimiteInterno = MorfologiaMatematica::limiteInterno(imagemLimites, elementoEstruturante);
+    cv::Mat resultLimiteExterno = MorfologiaMatematica::limiteExterno(imagemLimites, elementoEstruturante);
+    mostrarImagem("Morfologia - Limites Original", imagemLimites);
+    mostrarImagem("Morfologia - Limite Interno", resultLimiteInterno);
+    mostrarImagem("Morfologia - Limite Externo", resultLimiteExterno);
+    cv::imwrite("../data/result/06_limites_original.png", imagemLimites);
+    cv::imwrite("../data/result/06_limites_interno.png", resultLimiteInterno);
+    cv::imwrite("../data/result/06_limites_externo.png", resultLimiteExterno);
+    
+    // 3. IDENTIFICAÇÃO DE BORDAS (Imagens em tons de cinza)
+    std::cout << "3. Aplicando Detecção de Bordas..." << std::endl;
+    
+    // Carrega imagem de teste
+    cv::Mat imagemBordas = cv::imread("../data/model/07_bordas.png");
+    if (imagemBordas.empty()) {
+        std::cerr << "Aviso: ../data/model/07_bordas.png não encontrada. Usando imagem alternativa." << std::endl;
+        imagemBordas = imagemCinzaEColorido;
+    }
+    
+    cv::Mat imagemBordasCinza = ConversorTonsCinza::paraMediaPonderada(imagemBordas);
+    
+    // Roberts
+    cv::Mat bordasRoberts = DetectorBordas::roberts(imagemBordasCinza);
+    cv::Mat bordasRobertsLimiar = DetectorBordas::aplicarLimiar(bordasRoberts, 50);
+    mostrarImagem("Bordas - Roberts", bordasRoberts);
+    mostrarImagem("Bordas - Roberts Limiarizado", bordasRobertsLimiar);
+    cv::imwrite("../data/result/07_bordas_roberts.png", bordasRoberts);
+    cv::imwrite("../data/result/07_bordas_roberts_limiar.png", bordasRobertsLimiar);
+    
+    // Sobel
+    cv::Mat bordasSobel = DetectorBordas::sobel(imagemBordasCinza);
+    cv::Mat bordasSobelLimiar = DetectorBordas::aplicarLimiar(bordasSobel, 50);
+    mostrarImagem("Bordas - Sobel", bordasSobel);
+    mostrarImagem("Bordas - Sobel Limiarizado", bordasSobelLimiar);
+    cv::imwrite("../data/result/07_bordas_sobel.png", bordasSobel);
+    cv::imwrite("../data/result/07_bordas_sobel_limiar.png", bordasSobelLimiar);
+    
+    // Robinson
+    cv::Mat bordasRobinson = DetectorBordas::robinson(imagemBordasCinza);
+    cv::Mat bordasRobinsonLimiar = DetectorBordas::aplicarLimiar(bordasRobinson, 50);
+    mostrarImagem("Bordas - Robinson", bordasRobinson);
+    mostrarImagem("Bordas - Robinson Limiarizado", bordasRobinsonLimiar);
+    cv::imwrite("../data/result/07_bordas_robinson.png", bordasRobinson);
+    cv::imwrite("../data/result/07_bordas_robinson_limiar.png", bordasRobinsonLimiar);
+    
+    // Comparação lado a lado
+    mostrarImagem("Bordas - Original", imagemBordasCinza);
+    cv::imwrite("../data/result/07_bordas_original.png", imagemBordasCinza);
+
     // FINALIZAÇÃO DO PROGRAMA
-    std::cout << "\n=== PROCESSAMENTO CONCLUÍDO ===" << std::endl;
+    std::cout << "\n=== PROCESSAMENTO M2.1 CONCLUÍDO ===" << std::endl;
     std::cout << "Todas as imagens foram salvas na pasta result/" << std::endl;
+    std::cout << "\nAlgoritmos implementados:" << std::endl;
+    std::cout << "1. Convolução Simples (passa-baixa, passa-alta, nitidez)" << std::endl;
+    std::cout << "2. Morfologia Matemática (erosão, dilatação, abertura, fechamento, limites)" << std::endl;
+    std::cout << "3. Detecção de Bordas (Roberts, Sobel, Robinson)" << std::endl;
 
     // Aguarda tecla final e fecha todas as janelas
     cv::waitKey(0);

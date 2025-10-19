@@ -1,5 +1,5 @@
 CMakeFiles/pdi_code.dir/app/run.cpp.o: \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/app/run.cpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/app/run.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -348,10 +348,13 @@ CMakeFiles/pdi_code.dir/app/run.cpp.o: \
  /usr/include/opencv4/opencv2/video.hpp \
  /usr/include/opencv4/opencv2/video/tracking.hpp \
  /usr/include/opencv4/opencv2/video/background_segm.hpp \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/include/ProcessadorImagens.hpp \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/include/ProcessadorHistogramas.hpp \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/include/OperacoesAritmeticas.hpp \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/include/ConversorTonsCinza.hpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/include/ProcessadorImagens.hpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/include/ProcessadorHistogramas.hpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/include/OperacoesAritmeticas.hpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/include/ConversorTonsCinza.hpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/include/OperacoesConvolucao.hpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/include/MorfologiaMatematica.hpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/include/DetectorBordas.hpp \
  /usr/include/c++/11/filesystem /usr/include/c++/11/bits/fs_fwd.h \
  /usr/include/c++/11/bits/fs_path.h /usr/include/c++/11/codecvt \
  /usr/include/c++/11/bits/fs_dir.h /usr/include/c++/11/bits/fs_ops.h

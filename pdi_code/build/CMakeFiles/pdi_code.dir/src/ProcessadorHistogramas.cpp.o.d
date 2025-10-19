@@ -1,7 +1,7 @@
 CMakeFiles/pdi_code.dir/src/ProcessadorHistogramas.cpp.o: \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/src/ProcessadorHistogramas.cpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/src/ProcessadorHistogramas.cpp \
  /usr/include/stdc-predef.h \
- /home/outplan/Documentos/pessoal/Universidade/Processamento\ de\ imagem/TrabalhoM1/pdi_code/include/ProcessadorHistogramas.hpp \
+ /home/outplan/Área\ de\ Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/include/ProcessadorHistogramas.hpp \
  /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/include/opencv4/opencv2/core.hpp \
