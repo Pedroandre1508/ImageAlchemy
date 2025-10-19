@@ -36,22 +36,15 @@ void mostrarImagem(const std::string &nomeJanela, const cv::Mat &imagem)
  */
 int main()
 {
-    std::cout << "╔════════════════════════════════════════════════════════╗" << std::endl;
-    std::cout << "║  TRABALHO M2.1 - OPERAÇÕES NO DOMÍNIO DO ESPAÇO       ║" << std::endl;
-    std::cout << "║  Processamento Digital de Imagens - 2025              ║" << std::endl;
-    std::cout << "╚════════════════════════════════════════════════════════╝" << std::endl;
+    std::cout << "TRABALHO M2.1 - OPERAÇÕES NO DOMÍNIO DO ESPAÇO" << std::endl;
+    std::cout << "Processamento Digital de Imagens - 2025" << std::endl;
 
     // Cria pastas de resultados organizadas
     std::filesystem::create_directories("../data/result/Convolução Simples");
     std::filesystem::create_directories("../data/result/Morfologia Matemática");
     std::filesystem::create_directories("../data/result/Identificação de Bordas");
 
-    // ======================================
-    // 1. CONVOLUÇÃO SIMPLES
-    // ======================================
-    std::cout << "\n[1/3] Aplicando Convolução Simples..." << std::endl;
-    
-    // Lista de imagens para convolução: 01_convolucao, Cinza1, Cinza2, Cinza3
+    // 1. CONVOLUÇÃO SIMPLES    
     std::vector<std::string> imagensConvolucao = {
         "01_convolucao.png", "Cinza1.jpeg", "Cinza2.jpeg", "Cinza3.jpeg"
     };
@@ -69,9 +62,7 @@ int main()
             std::cerr << "   ✗ Erro ao carregar: " << nomeArquivo << std::endl;
             continue;
         }
-        
-        std::cout << "   → Processando " << nomeArquivo << "..." << std::endl;
-        
+                
         // Converte para cinza
         cv::Mat imagemConvCinza = ConversorTonsCinza::paraMediaPonderada(imagemConv);
         
@@ -104,18 +95,11 @@ int main()
         mostrarImagem("Nitidez - " + nomeArquivo, convNitidez);
         
         std::cout << "     ✓ " << nomeArquivo << " processada (4 resultados)" << std::endl;
-        std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
         cv::waitKey(0);
         cv::destroyAllWindows();
     }
     
-    std::cout << "   ✓ Convolução concluída - " << (imagensConvolucao.size() * 4) << " imagens salvas" << std::endl;
-
-    // ======================================
     // 2. MORFOLOGIA MATEMÁTICA
-    // ======================================
-    std::cout << "\n[2/3] Aplicando Morfologia Matemática..." << std::endl;
-    
     // Lista de imagens binárias: Binario1, Binario2, Binario3
     std::vector<std::string> imagensBinarias = {
         "Binario1.jpg", "Binario2.jpeg", "Binario3.jpg"
@@ -127,7 +111,6 @@ int main()
     // Processa cada operação morfológica com todas as imagens binárias
     
     // EROSÃO
-    std::cout << "   → Aplicando Erosão..." << std::endl;
     for (size_t i = 0; i < imagensBinarias.size(); i++) {
         std::string nomeArquivo = imagensBinarias[i];
         cv::Mat imagem = cv::imread("../data/model/" + nomeArquivo, cv::IMREAD_GRAYSCALE);
@@ -150,15 +133,11 @@ int main()
         mostrarImagem("Erosão - Original: " + nomeArquivo, imagem);
         mostrarImagem("Erosão - Resultado: " + nomeArquivo, resultado);
         
-        std::cout << "     ✓ " << nomeArquivo << " processada" << std::endl;
     }
-    
-    std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
     cv::waitKey(0);
     cv::destroyAllWindows();
     
     // DILATAÇÃO
-    std::cout << "   → Aplicando Dilatação..." << std::endl;
     for (size_t i = 0; i < imagensBinarias.size(); i++) {
         std::string nomeArquivo = imagensBinarias[i];
         cv::Mat imagem = cv::imread("../data/model/" + nomeArquivo, cv::IMREAD_GRAYSCALE);
@@ -177,16 +156,11 @@ int main()
         // Exibe as imagens
         mostrarImagem("Dilatação - Original: " + nomeArquivo, imagem);
         mostrarImagem("Dilatação - Resultado: " + nomeArquivo, resultado);
-        
-        std::cout << "     ✓ " << nomeArquivo << " processada" << std::endl;
-    }
-    
-    std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
+        }
     cv::waitKey(0);
     cv::destroyAllWindows();
     
     // ABERTURA
-    std::cout << "   → Aplicando Abertura..." << std::endl;
     for (size_t i = 0; i < imagensBinarias.size(); i++) {
         std::string nomeArquivo = imagensBinarias[i];
         cv::Mat imagem = cv::imread("../data/model/" + nomeArquivo, cv::IMREAD_GRAYSCALE);
@@ -206,15 +180,12 @@ int main()
         mostrarImagem("Abertura - Original: " + nomeArquivo, imagem);
         mostrarImagem("Abertura - Resultado: " + nomeArquivo, resultado);
         
-        std::cout << "     ✓ " << nomeArquivo << " processada" << std::endl;
     }
     
-    std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
     cv::waitKey(0);
     cv::destroyAllWindows();
     
     // FECHAMENTO
-    std::cout << "   → Aplicando Fechamento..." << std::endl;
     for (size_t i = 0; i < imagensBinarias.size(); i++) {
         std::string nomeArquivo = imagensBinarias[i];
         cv::Mat imagem = cv::imread("../data/model/" + nomeArquivo, cv::IMREAD_GRAYSCALE);
@@ -233,16 +204,12 @@ int main()
         // Exibe as imagens
         mostrarImagem("Fechamento - Original: " + nomeArquivo, imagem);
         mostrarImagem("Fechamento - Resultado: " + nomeArquivo, resultado);
-        
-        std::cout << "     ✓ " << nomeArquivo << " processada" << std::endl;
-    }
+        }
     
-    std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
     cv::waitKey(0);
     cv::destroyAllWindows();
     
     // LIMITES
-    std::cout << "   → Aplicando Limites (Interno e Externo)..." << std::endl;
     for (size_t i = 0; i < imagensBinarias.size(); i++) {
         std::string nomeArquivo = imagensBinarias[i];
         cv::Mat imagem = cv::imread("../data/model/" + nomeArquivo, cv::IMREAD_GRAYSCALE);
@@ -266,21 +233,14 @@ int main()
         mostrarImagem("Limites - Interno: " + nomeArquivo, limiteInterno);
         mostrarImagem("Limites - Externo: " + nomeArquivo, limiteExterno);
         
-        std::cout << "     ✓ " << nomeArquivo << " processada" << std::endl;
     }
     
-    std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
     cv::waitKey(0);
     cv::destroyAllWindows();
     
     int totalMorfologia = imagensBinarias.size() * 2 * 5 + imagensBinarias.size() * 3; // (original + resultado) * 5 operações + 3 imagens de limites extras
-    std::cout << "   ✓ Morfologia Matemática concluída - " << totalMorfologia << " imagens salvas" << std::endl;
 
-    // ======================================
     // 3. IDENTIFICAÇÃO DE BORDAS
-    // ======================================
-    std::cout << "\n[3/3] Aplicando Detecção de Bordas..." << std::endl;
-    
     // Lista de imagens em cinza: 07_bordas, Cinza4, Cinza7, Cinza8
     std::vector<std::string> imagensBordas = {
         "07_bordas.png", "Cinza4.jpeg", "Cinza7.jpeg", "Cinza8.jpeg"
@@ -294,9 +254,7 @@ int main()
             std::cerr << "   ✗ Erro ao carregar: " << nomeArquivo << std::endl;
             continue;
         }
-        
-        std::cout << "   → Processando " << nomeArquivo << "..." << std::endl;
-        
+                
         // Converte para cinza
         cv::Mat imagemBordasCinza = ConversorTonsCinza::paraMediaPonderada(imagemBordasOriginal);
         
@@ -343,7 +301,6 @@ int main()
         
         totalBordas += 7;
         std::cout << "     ✓ " << nomeArquivo << " processada (7 resultados)" << std::endl;
-        std::cout << "     ⏸ Pressione qualquer tecla para continuar..." << std::endl;
         cv::waitKey(0);
         cv::destroyAllWindows();
     }
@@ -351,9 +308,7 @@ int main()
     std::cout << "   ✓ Detecção de Bordas concluída - " << totalBordas << " imagens salvas" << std::endl;
 
     // FINALIZAÇÃO
-    std::cout << "\n╔════════════════════════════════════════════════════════╗" << std::endl;
-    std::cout << "║  ✓ PROCESSAMENTO M2.1 CONCLUÍDO COM SUCESSO!          ║" << std::endl;
-    std::cout << "╚════════════════════════════════════════════════════════╝" << std::endl;
+    std::cout << "  ✓ PROCESSAMENTO M2.1 CONCLUÍDO COM SUCESSO!          " << std::endl;
     std::cout << "\nResumo do Processamento:" << std::endl;
     std::cout << "\n  1. Convolução Simples - 4 imagens" << std::endl;
     std::cout << "     • 01_convolucao.png, Cinza1.jpeg, Cinza2.jpeg, Cinza3.jpeg" << std::endl;
