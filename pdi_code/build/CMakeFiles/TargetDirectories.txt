@@ -1,4 +1,5 @@
 /home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/build/CMakeFiles/pdi_code.dir
 /home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/build/CMakeFiles/pdi_m2.dir
+/home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/build/CMakeFiles/comparacao_opencv.dir
 /home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/build/CMakeFiles/edit_cache.dir
 /home/outplan/Área de Trabalho/ImageAlchemy/ImageAlchemy/pdi_code/build/CMakeFiles/rebuild_cache.dir

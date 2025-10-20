@@ -51,4 +51,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/pdi_code.dir/DependInfo.cmake"
   "CMakeFiles/pdi_m2.dir/DependInfo.cmake"
+  "CMakeFiles/comparacao_opencv.dir/DependInfo.cmake"
   )
